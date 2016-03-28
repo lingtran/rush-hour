@@ -46,9 +46,21 @@
 
 
 * #### What is expected of group members when they run into problems implementing a feature? ####
+  * D - I think that you should obviously spend some time trying to figure it out on your own… mostly for your own benefit in being able to solve your own problems, I normally say give it 15-30 minutes before you ask.
+  * L - ditto
+  * M - Ask for help. I feel like this is super basic, but maybe not if it’s on a DTR template.
+
+
+* #### How does each group member want feedback (both positive and constructive) to be delivered? ####
+  * D - in-person
+  * L - in-person
+  * M - in-person
+
+
+* #### Is there anything else the group should know about personal work/communication styles? ####
   * D -
   * L -
-  * M - Ask for help. I feel like this is super basic, but maybe not if it’s on a DTR template.
-* How does each group member want feedback (both positive and constructive) to be delivered?
-* Is there anything else the group should know about personal work/communication styles?
-* Additional Notes:
+  * M -
+
+
+* #### Additional Notes: ####
