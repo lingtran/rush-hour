@@ -10,11 +10,16 @@ require 'capybara/dsl'
 
 Capybara.app = RushHour::Server
 
+DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 module TestHelpers
 
+  def setup
+    DatabaseCleaner.start
+  end
+  
   def teardown
-    PayloadRequest.destroy_all
+    DatabaseCleaner.clean
   end
 
   def create_url(root, path)
@@ -58,10 +63,10 @@ module TestHelpers
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search#{i + 1}").id,
         :requested_at => Date.new(2016, 01, 01),
-        :responded_in_id => create_responded_in("respondedIn #{i + 1}").id,
+        :responded_in_id => create_responded_in(i + 1).id,
         :referred_by_id => create_referred_by("bing.com", "/search#{i + 1}").id,
         :request_type_id => create_request_type("requestType #{i + 1}").id,
-        :parameters_id => create_parameters("parameters #{i + 1}").id,
+        :parameters_id => create_parameters(["parameters #{i + 1}"]).id,
         :event_name_id => create_event_name("eventName #{i + 1}").id,
         :user_agent_id => create_user_agent("OSX", "Chrome #{i + 1}").id,
         :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
