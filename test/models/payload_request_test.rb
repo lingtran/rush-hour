@@ -1,4 +1,5 @@
 require_relative '../test_helper'
+require 'pry'
 
 class PayloadRequestTest < Minitest::Test
 
@@ -8,6 +9,8 @@ class PayloadRequestTest < Minitest::Test
 
     assert PayloadRequest.new
     new_payload_request = create_payload_requests
+    binding.pry
+    refute new_payload_request.all.empty?
     expected = PayloadRequest.all.last.id
     assert_equal expected, PayloadRequest.find(new_payload_request.id).id
   end
