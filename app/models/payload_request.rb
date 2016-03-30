@@ -31,21 +31,26 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
-    verbs = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
-    verbs.max_by { |k,v| v }.first
+    RequestType.find(self.maximum(:request_type_id))
+    # verbs = Hash.new(0)
+    # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
+    # verbs.max_by { |k,v| v }.first
   end
 
   def self.all_http_verbs
-    verbs = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
-    verbs.keys
+    RequestType.all
+    # verbs = Hash.new(0)
+    # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
+    # verbs.keys
   end
 
   def self.list_of_urls
-    urls = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| urls[pr.url.root + pr.url.path] += 1}
-    urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
+    Url.all.map do |url|
+      [url.root, url.path].join()
+    end
+    # urls = Hash.new(0)
+    # self.all.reduce(0) { |sum, pr| urls[pr.url.root + pr.url.path] += 1}
+    # urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
   end
 
   def self.web_browser_breakdown

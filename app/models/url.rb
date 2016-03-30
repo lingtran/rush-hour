@@ -4,11 +4,19 @@ class Url < ActiveRecord::Base
   validates :path, presence: true
 
   def self.max_response_time_by_url(url)
+    Url.get_responded_ins_for_url(url).max
+  end
+
+  def self.min_response_time_by_url(url)
+    Url.get_responded_ins_for_url(url).min
+  end
+
+  def self.get_responded_ins_for_url(url)
     split = Url.url_parser(url)
     result = self.find_by(:root => split[:root], :path => split[:path])
     PayloadRequest.where(:url_id => result.id).map do |pr|
       pr.responded_in.responded_in
-    end.max
+    end
   end
 
   def self.url_parser(url)

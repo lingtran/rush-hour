@@ -25,35 +25,35 @@ module TestHelpers
   end
 
   def create_url(root, path)
-    Url.create({root: root, path: path})
+    Url.find_or_create_by({root: root, path: path})
   end
 
   def create_responded_in(responded_in)
-    RespondedIn.create({:responded_in => responded_in})
+    RespondedIn.find_or_create_by({:responded_in => responded_in})
   end
 
   def create_referred_by(root, path)
-    ReferredBy.create({root: root, path: path})
+    ReferredBy.find_or_create_by({root: root, path: path})
   end
 
   def create_request_type(request_type)
-    RequestType.create({:verb => request_type})
+    RequestType.find_or_create_by({:verb => request_type})
   end
 
   def create_event_name(event_name)
-    EventName.create({:event_name => event_name})
+    EventName.find_or_create_by({:event_name => event_name})
   end
 
   def create_user_agent(os, browser)
-    UserAgent.create({os: os, browser: browser})
+    UserAgent.find_or_create_by({os: os, browser: browser})
   end
 
   def create_resolution(width, height)
-    Resolution.create({width: width, height: height})
+    Resolution.find_or_create_by({width: width, height: height})
   end
 
   def create_ip(ip)
-    Ip.create({:ip => ip})
+    Ip.find_or_create_by({:ip => ip})
   end
 
   def create_payload_requests(num = 1)
