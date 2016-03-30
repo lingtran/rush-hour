@@ -74,7 +74,7 @@ class PayloadRequestTest < Minitest::Test
     create_payload_requests
     payload_request = PayloadRequest.last
     assert_respond_to payload_request, :user_agent
-    assert_equal "OSX", payload_request.user_agent.os
+    assert_equal "OSX1", payload_request.user_agent.os
     assert_equal "Chrome 1", payload_request.user_agent.browser
   end
 
@@ -102,7 +102,7 @@ class PayloadRequestTest < Minitest::Test
       :referred_by_id => create_referred_by("bing.com", "/search1").id,
       :request_type_id => create_request_type("POST").id,
       :event_name_id => create_event_name("eventName").id,
-      :user_agent_id => create_user_agent("OSX", "Chrome ").id,
+      :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
       :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
       :ip_id => create_ip("127.0.0.27").id
       })
@@ -119,7 +119,7 @@ class PayloadRequestTest < Minitest::Test
       :referred_by_id => create_referred_by("bing.com", "/search1").id,
       :request_type_id => create_request_type("POST").id,
       :event_name_id => create_event_name("eventName").id,
-      :user_agent_id => create_user_agent("OSX", "Chrome ").id,
+      :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
       :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
       :ip_id => create_ip("127.0.0.32").id
       })
@@ -134,5 +134,28 @@ class PayloadRequestTest < Minitest::Test
 
     result = ["google.com/search1", "google.com/search2", "google.com/search3"]
     assert_equal result, PayloadRequest.list_of_urls
+  end
+
+  def test_web_browser_breakdown_across_all_requests
+    create_payload_requests(2)
+    assert_equal ["Chrome 1", "Chrome 2"], PayloadRequest.web_browser_breakdown
+  end
+
+  def test_osx_breakdown_across_all_requests
+    create_payload_requests(2)
+    assert_equal ["OSX1", "OSX2"], PayloadRequest.osx_breakdown
+  end
+
+  def test_screen_resolutions_across_all_requests
+    create_payload_requests(2)
+    result = ["resolutionWidth 1 x resolutionHeight 1", "resolutionWidth 2 x resolutionHeight 2"]
+    assert_equal result, PayloadRequest.resolution_breakdown
+  end
+
+  def test_events_listed_from_most_received_to_least
+    create_payload_requests(2)
+    create_payload_requests
+
+    assert_equal ["eventName 1", "eventName 2"], PayloadRequest.ordered_events
   end
 end
