@@ -13,4 +13,10 @@ class UrlTest < Minitest::Test
     assert_respond_to url, :payload_requests
   end
 
+  def test_max_response_time
+    create_payload_requests(1)
+    create_payload_requests(2)
+    assert_equal 2, Url.max_response_time_by_url("google.com/search2")
+    assert_equal 1, Url.max_response_time_by_url("google.com/search1")
+  end
 end
