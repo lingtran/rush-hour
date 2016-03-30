@@ -78,6 +78,14 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "Chrome 1", payload_request.user_agent.browser
   end
 
+  def test_payload_request_class_has_client
+    create_payload_requests
+    payload_request = PayloadRequest.last
+    assert_respond_to payload_request, :client
+    assert_equal "jumpstartlab", payload_request.client.identifier
+    assert_equal "http://jumpstartlab.com", payload_request.client.rootUrl
+  end
+
   def test_average_response_time_for_our_clients_app_across_all_requests
     create_payload_requests(2)
     assert_equal 1.5, PayloadRequest.average_response_time
@@ -104,7 +112,8 @@ class PayloadRequestTest < Minitest::Test
       :event_name_id => create_event_name("eventName").id,
       :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
       :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
-      :ip_id => create_ip("127.0.0.27").id
+      :ip_id => create_ip("127.0.0.27").id,
+      :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
       })
 
     assert "GET", PayloadRequest.most_frequent_request_type
@@ -121,7 +130,8 @@ class PayloadRequestTest < Minitest::Test
       :event_name_id => create_event_name("eventName").id,
       :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
       :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
-      :ip_id => create_ip("127.0.0.32").id
+      :ip_id => create_ip("127.0.0.32").id,
+      :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
       })
 
     assert ["GET", "POST"], PayloadRequest.all_http_verbs
@@ -160,5 +170,4 @@ class PayloadRequestTest < Minitest::Test
   end
 
 
-  
 end

@@ -8,7 +8,7 @@ class ResolutionTest < Minitest::Test
     refute Resolution.new.valid?
   end
 
-  def test_resoltuion_has_payload_requests
+  def test_resolution_has_payload_requests
     resolution = create_resolution("800", "600")
     assert_respond_to resolution, :payload_requests
   end

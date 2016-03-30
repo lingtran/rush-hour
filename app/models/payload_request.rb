@@ -1,4 +1,5 @@
 class PayloadRequest < ActiveRecord::Base
+  belongs_to :client
   belongs_to :url
   belongs_to :request_type
   belongs_to :responded_in
@@ -17,6 +18,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_id, presence: true
   validates :resolution_id, presence: true
   validates :ip_id, presence: true
+  validates :client_id, presence: true
 
   def self.average_response_time
     RespondedIn.average(:responded_in)
@@ -31,6 +33,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_frequent_request_type
+    # check if maximum is maximum id number or maximum occurrence for id 
     RequestType.find(self.maximum(:request_type_id))
     # verbs = Hash.new(0)
     # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}

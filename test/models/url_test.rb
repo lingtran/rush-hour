@@ -49,6 +49,7 @@ class UrlTest < Minitest::Test
   end
 
   def test_average_response_time_by_url
+    skip
     create_payload_requests(3)
     create_payload_requests(3)
     create_payload_requests(3)
