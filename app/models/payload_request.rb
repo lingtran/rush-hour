@@ -48,4 +48,28 @@ class PayloadRequest < ActiveRecord::Base
     urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
   end
 
+  def self.web_browser_breakdown
+    browsers = Hash.new(0)
+    self.all.reduce(0) { |sum, pr| browsers[pr.user_agent.browser] += 1}
+    browsers.keys
+  end
+
+  def self.osx_breakdown
+    oss = Hash.new(0)
+    self.all.reduce(0) { |sum, pr| oss[pr.user_agent.os] += 1}
+    oss.keys
+  end
+
+  def self.resolution_breakdown
+    resolutions = Hash.new(0)
+    self.all.reduce(0) { |sum, pr| resolutions["#{pr.resolution.width} x #{pr.resolution.height}"] += 1}
+    resolutions.keys
+  end
+
+  def self.ordered_events
+    ordered_events = Hash.new(0)
+    self.all.reduce(0) {|sum, pr| ordered_events[pr.event_name.event_name] += 1}
+    ordered_events.sort_by { |k,v| v }.map { |i| i[0]}.reverse
+  end
+
 end
