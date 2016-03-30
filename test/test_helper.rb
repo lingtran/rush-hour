@@ -7,6 +7,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
+require 'database_cleaner'
 
 Capybara.app = RushHour::Server
 
@@ -17,7 +18,7 @@ module TestHelpers
   def setup
     DatabaseCleaner.start
   end
-  
+
   def teardown
     DatabaseCleaner.clean
   end
@@ -70,7 +71,7 @@ module TestHelpers
         :event_name_id => create_event_name("eventName #{i + 1}").id,
         :user_agent_id => create_user_agent("OSX", "Chrome #{i + 1}").id,
         :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
-        :ip_id => create_ip("127.0.0.#{i}").id
+        :ip_id => create_ip("127.0.0.#{i+1}").id
         })
     end
   end
