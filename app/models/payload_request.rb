@@ -21,65 +21,46 @@ class PayloadRequest < ActiveRecord::Base
   validates :client_id, presence: true
 
   def self.average_response_time
-    RespondedIn.average(:responded_in)
+    joins(:responded_in).average(:responded_in)
   end
 
   def self.max_response_time
-    RespondedIn.maximum(:responded_in)
+    joins(:responded_in).maximum(:responded_in)
   end
 
   def self.min_response_time
-    RespondedIn.minimum(:responded_in)
+    joins(:responded_in).minimum(:responded_in)
   end
 
   def self.most_frequent_request_type
-    # check if maximum is maximum id number or maximum occurrence for id 
-    RequestType.find(self.maximum(:request_type_id))
-    # verbs = Hash.new(0)
-    # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
-    # verbs.max_by { |k,v| v }.first
+    # request type model
+    request_frequency = self.group(:request_type_id).count
+    most_frequent = request_frequency.max_by { |k,v| v }
+    RequestType.find(most_frequent.first).verb
   end
 
   def self.all_http_verbs
-    binding.pry 
     RequestType.all
-    # verbs = Hash.new(0)
-    # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
-    # verbs.keys
   end
 
   def self.list_of_urls
-    # Url.all.map do |url|
-    #   [url.root, url.path].join()
-    # end.sort
-    urls = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| urls[pr.url.root + pr.url.path] += 1}
-    urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
+    Url.pluck(:root, :path).map { |url| url.join }
   end
 
   def self.web_browser_breakdown
-
-    browsers = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| browsers[pr.user_agent.browser] += 1}
-    browsers.keys
+    UserAgent.pluck(:browser).uniq
   end
 
-  def self.osx_breakdown
-    oss = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| oss[pr.user_agent.os] += 1}
-    oss.keys
+  def self.os_breakdown
+    UserAgent.pluck(:os).uniq
   end
 
   def self.resolution_breakdown
-    resolutions = Hash.new(0)
-    self.all.reduce(0) { |sum, pr| resolutions["#{pr.resolution.width} x #{pr.resolution.height}"] += 1}
-    resolutions.keys
+    Resolution.pluck(:width, :height).map { |res| res.join(" x ")}
   end
 
   def self.ordered_events
-    ordered_events = Hash.new(0)
-    self.all.reduce(0) {|sum, pr| ordered_events[pr.event_name.event_name] += 1}
-    ordered_events.sort_by { |k,v| v }.map { |i| i[0]}.reverse
+    # EventName.joins(:payload_requests).group(:event_name).order("count_all desc").count
   end
 
 end

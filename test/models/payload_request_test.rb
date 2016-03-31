@@ -153,7 +153,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_osx_breakdown_across_all_requests
     create_payload_requests(2)
-    assert_equal ["OSX1", "OSX2"], PayloadRequest.osx_breakdown
+    assert_equal ["OSX1", "OSX2"], PayloadRequest.os_breakdown
   end
 
   def test_screen_resolutions_across_all_requests
@@ -163,6 +163,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_events_listed_from_most_received_to_least
+    create_payload_requests(3)
     create_payload_requests(2)
     create_payload_requests
 
