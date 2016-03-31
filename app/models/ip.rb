@@ -1,6 +1,8 @@
-class Ip < ActiveRecord::Base
-  has_many :payload_requests
+module RushHour
+  class Ip < ActiveRecord::Base
+    has_many :payload_requests
 
-  validates :ip, presence: true
+    validates :ip, presence: true
 
+  end
 end

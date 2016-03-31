@@ -4,5 +4,9 @@ module RushHour
 
     validates :event_name, presence: true
 
+    def self.ordered_events
+      joins(:payload_requests).group(:event_name).order("count_all desc").count
+    end
   end
-end 
+
+end
