@@ -56,6 +56,10 @@ module TestHelpers
     Ip.find_or_create_by({:ip => ip})
   end
 
+  def create_client(identifier, rootUrl)
+    Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+  end
+
   def create_payload_requests(num = 1)
     num.times do |i|
       PayloadRequest.create({
@@ -67,7 +71,8 @@ module TestHelpers
         :event_name_id => create_event_name("eventName #{i + 1}").id,
         :user_agent_id => create_user_agent("OSX#{i + 1}", "Chrome #{i + 1}").id,
         :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
-        :ip_id => create_ip("127.0.0.#{i + 1}").id
+        :ip_id => create_ip("127.0.0.#{i + 1}").id,
+        :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
         })
     end
   end

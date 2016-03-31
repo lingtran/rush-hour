@@ -3,29 +3,31 @@ class Url < ActiveRecord::Base
   validates :root, presence: true
   validates :path, presence: true
 
-  def self.max_response_time_by_url(url)
-    Url.get_responded_ins_for_url(url).max
+  def max_response_time_by_url
+    get_responded_ins_for_url.max
   end
 
-  def self.min_response_time_by_url(url)
-    Url.get_responded_ins_for_url(url).min
+  def min_response_time_by_url
+    get_responded_ins_for_url.min
   end
 
-  def self.get_responded_ins_for_url(url)
-    split = Url.url_parser(url)
-    result = self.find_by(:root => split[:root], :path => split[:path])
-    PayloadRequest.where(:url_id => result.id).map do |pr|
-      pr.responded_in.responded_in
-    end
+  def get_responded_ins_for_url
+    # split = Url.url_parser(url)
+    # result = self.find_by(:root => split[:root], :path => split[:path])
+    # PayloadRequest.where(:url_id => result.id).map do |pr|
+    #   pr.responded_in.responded_in
+    # end
+    payload_requests.map { |pr| pr.responded_in.responded_in }
   end
 
-  def self.url_parser(url)
-    split = Hash.new
-    initial_split = url.split("/")
-    split[:root] = initial_split[0]
-    split[:path] = "/#{initial_split[1]}"
-    split
-  end
+
+  # def self.url_parser(url)
+  #   split = Hash.new
+  #   initial_split = url.split("/")
+  #   split[:root] = initial_split[0]
+  #   split[:path] = "/#{initial_split[1]}"
+  #   split
+  # end
 
   def self.all_response_times_for_url_ordered(url)
     Url.get_responded_ins_for_url(url).sort.reverse
