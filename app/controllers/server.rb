@@ -6,24 +6,35 @@ module RushHour
     end
 
     post '/sources' do
-      if params[:identifier].nil? || params[:rootUrl].nil?
+
+
         client = Client.new(params)
-        client.save
-        status 400
-        body "#{client.errors.full_messages.join(", ")}"
-      elsif Client.find_by(:identifier => params[:identifier])
-        status 403
-        body "Forbidden"
-      else
-        Client.create(:identifier => params[:identifier], :rootUrl => params[:rootUrl])
+      if client.save
         status 200
         body "Client created"
-
+      elsif Client.find_by(:identifier => params[:identifier])
+        status 403
+        body "Forbidden!"
+      else
+        status 400
+        body "#{client.errors.full_messages.join(", ")}"
+        # how do we access error messages for this case? is current one descriptive enough?
       end
     end
 
+    post '/sources/:identifier/data' do |identifier|
+      # what to do about the rootUrl?
+      client = Client.find_by(:identifier => identifier)
+      if client.nil?
+        status 403
+        body "Application Not Registered"
+      else
+        "It's all good"
+      end
+    end
     not_found do
       erb :error
     end
+
   end
 end

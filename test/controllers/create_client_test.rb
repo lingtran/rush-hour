@@ -35,7 +35,7 @@ class CreateClientTest < Minitest::Test
 
     post '/sources', { identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com" }
     assert_equal 1, Client.count
-    assert_equal "Forbidden", last_response.body
+    assert_equal "Forbidden!", last_response.body
     assert_equal 403, last_response.status
   end
 end
