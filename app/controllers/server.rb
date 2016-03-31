@@ -6,9 +6,7 @@ module RushHour
     end
 
     post '/sources' do
-
-
-        client = Client.new(params)
+      client = Client.new(params)
       if client.save
         status 200
         body "Client created"
