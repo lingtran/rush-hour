@@ -41,6 +41,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.all_http_verbs
+    binding.pry 
     RequestType.all
     # verbs = Hash.new(0)
     # self.all.reduce(0) { |sum, pr| verbs[pr.request_type.verb] += 1}
@@ -48,15 +49,16 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.list_of_urls
-    Url.all.map do |url|
-      [url.root, url.path].join()
-    end
-    # urls = Hash.new(0)
-    # self.all.reduce(0) { |sum, pr| urls[pr.url.root + pr.url.path] += 1}
-    # urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
+    # Url.all.map do |url|
+    #   [url.root, url.path].join()
+    # end.sort
+    urls = Hash.new(0)
+    self.all.reduce(0) { |sum, pr| urls[pr.url.root + pr.url.path] += 1}
+    urls.sort_by {|k,v| v}.map { |i| i[0] }.reverse
   end
 
   def self.web_browser_breakdown
+
     browsers = Hash.new(0)
     self.all.reduce(0) { |sum, pr| browsers[pr.user_agent.browser] += 1}
     browsers.keys
