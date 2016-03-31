@@ -1,6 +1,9 @@
-class RespondedIn < ActiveRecord::Base
-  has_many :payload_requests
+module RushHour
 
-  validates :responded_in, presence: true
+  class RespondedIn < ActiveRecord::Base
+    has_many :payload_requests
 
+    validates :responded_in, presence: true
+
+  end
 end

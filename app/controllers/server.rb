@@ -31,8 +31,12 @@ module RushHour
       if client.nil?
         status 403
         body "Application Not Registered"
-      else
-        "It's all good"
+      elsif payload.save
+        status 200
+        body "It's all good"
+      elsif payload.nil?
+        status 400
+        body "#{client.errors.full_messages.join(", ")}"
       end
     end
 
