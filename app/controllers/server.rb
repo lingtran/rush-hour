@@ -23,6 +23,11 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
+
+      # status_code, body_content = ProcessPayload.call(identifier, params)
+      # process_payload = ProcessPayload.call(identifier, params)
+      # status(process_payload.status_code)
+      # body(process_payload.body_content)
       # what to do about the rootUrl?
       client = Client.find_by(:identifier => identifier)
       if client.nil?
@@ -32,6 +37,7 @@ module RushHour
         "It's all good"
       end
     end
+
     not_found do
       erb :error
     end
