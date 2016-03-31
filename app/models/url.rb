@@ -1,69 +1,41 @@
 class Url < ActiveRecord::Base
   has_many :payload_requests
+  has_many :responded_ins, through: :payload_requests
+  has_many :request_types, through: :payload_requests
+  has_many :referred_bies, through: :payload_requests
+  has_many :user_agents, through: :payload_requests
   validates :root, presence: true
   validates :path, presence: true
 
   def max_response_time_by_url
-    get_responded_ins_for_url.max
+    responded_ins.maximum("responded_in")
   end
 
   def min_response_time_by_url
-    get_responded_ins_for_url.min
+    responded_ins.minimum("responded_in")
   end
 
-  def get_responded_ins_for_url
-    # split = Url.url_parser(url)
-    # result = self.find_by(:root => split[:root], :path => split[:path])
-    # PayloadRequest.where(:url_id => result.id).map do |pr|
-    #   pr.responded_in.responded_in
-    # end
-    payload_requests.map { |pr| pr.responded_in.responded_in }
+  def all_response_times_for_url_ordered
+    responded_ins.pluck(:responded_in).sort.reverse
   end
 
-
-  # def self.url_parser(url)
-  #   split = Hash.new
-  #   initial_split = url.split("/")
-  #   split[:root] = initial_split[0]
-  #   split[:path] = "/#{initial_split[1]}"
-  #   split
-  # end
-
-  def self.all_response_times_for_url_ordered(url)
-    Url.get_responded_ins_for_url(url).sort.reverse
+  def average_response_time_by_url
+    responded_ins.average("responded_in").to_f.round(2)
   end
 
-  def self.average_response_time_by_url(url)
-    response_times = Url.get_responded_ins_for_url(url)
-    response_times.reduce(:+)/response_times.count
+  def http_verbs_for_url
+    request_types.pluck("verb").uniq
   end
 
-  def self.http_verbs_for_url(url)
-    split = Url.url_parser(url)
-    result = self.find_by(:root => split[:root], :path => split[:path])
-    PayloadRequest.where(:url_id => result.id).map do |pr|
-      pr.request_type.verb
-    end.uniq
+  def three_most_popular_referrers
+    referrers_by_count = referred_bies.group(:root, :path).count
+    ranked = referrers_by_count.invert.max_by(3) { |k,v| k }
+    ranked.map { |referrer| "#{referrer.last.join}: #{referrer.first}"}
   end
 
-  def self.three_most_popular_referrers(url)
-    split = Url.url_parser(url)
-    referred_bies = Hash.new(0)
-    result = self.find_by(:root => split[:root], :path => split[:path])
-    PayloadRequest.where(:url_id => result.id).reduce(0)do |sum, pr|
-      referred_bies[pr.referred_by.root + pr.referred_by.path] += 1
-    end
-    referred_bies.sort_by { |k,v| v }.reverse.take(3).map { |x| x.first }
-  end
-
-  def self.three_most_popular_user_agents(url)
-    split = Url.url_parser(url)
-    user_agents = Hash.new(0)
-    result = self.find_by(:root => split[:root], :path => split[:path])
-
-    PayloadRequest.where(:url_id => result.id).reduce(0)do |sum, pr|
-      user_agents["#{pr.user_agent.os} #{pr.user_agent.browser}"] += 1
-    end
-    user_agents.sort_by { |k,v| v }.reverse.take(3).map { |x| x.first }
+  def three_most_popular_user_agents
+    user_agents_by_count = user_agents.group(:os, :browser).count
+    ranked = user_agents_by_count.invert.max_by(3) { |k,v| k }
+    ranked.map { |user_agent| "#{user_agent.last.join(" ")}: #{user_agent.first}"}
   end
 end
