@@ -29,13 +29,13 @@ class Url < ActiveRecord::Base
 
   def three_most_popular_referrers
     referrers_by_count = referred_bies.group(:root, :path).count
-    ranked = referrers_by_count.invert.max_by(3) { |k,v| k }
-    ranked.map { |referrer| "#{referrer.last.join}: #{referrer.first}"}
+    ranked = referrers_by_count.max_by(3) { |k,v| v }
+    ranked.map { |referrer| "#{referrer.first.join}: #{referrer.last}"}
   end
 
   def three_most_popular_user_agents
     user_agents_by_count = user_agents.group(:os, :browser).count
-    ranked = user_agents_by_count.invert.max_by(3) { |k,v| k }
-    ranked.map { |user_agent| "#{user_agent.last.join(" ")}: #{user_agent.first}"}
+    ranked = user_agents_by_count.max_by(3) { |k,v| v }
+    ranked.map { |user_agent| "#{user_agent.first.join(" ")}: #{user_agent.last}"}
   end
 end
