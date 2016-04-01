@@ -21,6 +21,15 @@ module RushHour
     validates :resolution_id, presence: true
     validates :ip_id, presence: true
     validates :client_id, presence: true
+    validates_uniqueness_of :client_id, scope: [:url_id,
+                                               :requested_at,
+                                               :responded_in_id,
+                                               :referred_by_id,
+                                               :request_type_id,
+                                               :event_name_id,
+                                               :user_agent_id,
+                                               :resolution_id,
+                                               :ip_id]
 
     def self.average_response_time
       joins(:responded_in).average(:responded_in)

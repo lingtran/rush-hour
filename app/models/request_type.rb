@@ -2,7 +2,8 @@ module RushHour
 
   class RequestType < ActiveRecord::Base
     has_many :payload_requests
-    validates :verb, presence: true
+    validates :verb, presence: true, uniqueness: true
+
 
     def self.most_frequent_request_type
       request_frequency = joins(:payload_requests).group(:verb).order("count_all desc").count
