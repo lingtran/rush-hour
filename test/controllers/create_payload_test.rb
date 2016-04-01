@@ -9,16 +9,32 @@ module RushHour
       RushHour::Server
     end
 
-    # def test_client_cannot_be_found
-    #   assert_equal 0, Client.count
-    #   post '/sources/jumpstartlab1/data'
-    #
-    #   assert_equal 403, last_response.status
-    #   assert_equal "Application Not Registered", last_response.body
-    #   create_client("jumpstartlab", "http://jumpstartlab.com")
-    #   post '/sources/jumpstartlab/data'
-    #   assert_equal 1, Client.count
-    # end
+    def payload_data
+      {
+        url:"http://jumpstartlab.com/blog",
+        requestedAt:"2013-02-16 21:38:28 -0700",
+        respondedIn:37,
+        referredBy:"http://jumpstartlab.com",
+        requestType:"GET",
+        parameters:[],
+        eventName:"socialLogin",
+        userAgent:"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+        resolutionWidth:"1920",
+        resolutionHeight:"1280",
+        ip:"63.29.38.211"
+      }.to_json
+    end
+
+    def test_client_cannot_be_found
+      assert_equal 0, Client.count
+      post '/sources/jumpstartlab1/data', { payload: payload_data }
+
+      assert_equal 403, last_response.status
+      assert_equal "Application Not Registered", last_response.body
+      create_client("jumpstartlab", "http://jumpstartlab.com")
+      post '/sources/jumpstartlab/data'
+      assert_equal 1, Client.count
+    end
 
     # def test_user_agent
     #   ua = "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"

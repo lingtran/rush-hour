@@ -58,8 +58,5 @@ module RushHour
     def self.resolution_breakdown
       joins(:resolution).pluck(:width, :height).map { |res| res.join(" x ")}
     end
-
-
-
   end
 end
