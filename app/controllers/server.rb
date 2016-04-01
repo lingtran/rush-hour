@@ -27,7 +27,6 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
-      binding.pry
       client = Client.find_by(:identifier => identifier)
       parsed_params = JSON.parse(params[:payload])
       pr_creator(parsed_params)
