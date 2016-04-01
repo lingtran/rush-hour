@@ -6,7 +6,6 @@ module RushHour
     include TestHelpers
 
     def test_payload_request_class_can_be_created
-
       assert PayloadRequest.new
       create_payload_requests
       refute PayloadRequest.all.empty?
