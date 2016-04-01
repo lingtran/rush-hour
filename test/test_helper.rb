@@ -58,7 +58,7 @@ module RushHour
     end
 
     def create_client(identifier, rootUrl)
-      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+    Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
     end
 
     def create_payload_requests(num = 1)

@@ -27,7 +27,8 @@ module RushHour
 
     def test_client_cannot_be_found
       assert_equal 0, Client.count
-      post '/sources/jumpstartlab1/data', { payload: payload_data }
+      post '/sources/jumpstartlab1/data', { :payload => payload_data }
+      # JSON.parse(params[:payload])
 
       assert_equal 403, last_response.status
       assert_equal "Application Not Registered", last_response.body
