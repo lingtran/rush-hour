@@ -6,8 +6,9 @@ module RushHour
     has_many :request_types, through: :payload_requests
     has_many :referred_bies, through: :payload_requests
     has_many :user_agents, through: :payload_requests
-    validates :root, presence: true
+    validates :root, presence: true, uniqueness: {scope: :path}
     validates :path, presence: true
+
 
     def max_response_time_by_url
       responded_ins.maximum("responded_in")
