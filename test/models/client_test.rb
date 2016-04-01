@@ -10,9 +10,13 @@ module RushHour
     end
 
     def test_client_has_payload_requests
-      client = create_client("800", "600")
+      client = create_client("jumpstartlab", "jumpstartlab.com")
       assert_respond_to client, :payload_requests
     end
 
+    def test_cannot_send_duplicate_client
+      create_client("jumpstartlab", "jumpstartlab.com")
+      assert_equal create_client("jumpstartlab", "jumpstartlab.com")
+    end
   end
 end
