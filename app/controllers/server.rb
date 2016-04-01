@@ -27,11 +27,11 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
+      binding.pry
       client = Client.find_by(:identifier => identifier)
       parsed_params = JSON.parse(params[:payload])
       pr_creator(parsed_params)
 
-      binding.pry
       payload = PayloadRequest.new(parsed_params)
       if client.nil?
         status 403
@@ -45,20 +45,20 @@ module RushHour
       end
     end
 
-    def pr_creator(parsed_params)
-      {
-        :url_id =>
-        :request_id => parsed_params[:requestedAt],
-        :responded_in_id => parsed_params[:respondedIn],
-        :referred_by_id => parsed_params[:referredBy],
-        :request_type_id => parsed_params[:requstType],
-        :event_name_id => parsed_params[:eventName],
-        :user_agent_id => parsed_params[:userAgent],
-        :resolution_id => { width: parsed_params[:resolutionWidth], height: parsed_params[:resolutionHeight] },
-        :ip_id => parsed_params[:ip],
-        :client_id => { :identifier => parsed_params[:identifier], :rootUrl => parsed_params[:rootUrl]}
-      }
-    end
+    # def pr_creator(parsed_params)
+    #   {
+    #     :url_id => {:root => parsed_params["url"].split, :path => parsed_params["url"]}
+    #     :request_id => parsed_params["requestedAt"],
+    #     :responded_in_id => parsed_params["respondedIn"],
+    #     :referred_by_id => parsed_params["referredBy"],
+    #     :request_type_id => parsed_params["requestType"],
+    #     :event_name_id => parsed_params["eventName"],
+    #     :user_agent_id => parsed_params["userAgent"],
+    #     :resolution_id => { width: parsed_params["resolutionWidth"], height: parsed_params["resolutionHeight"] },
+    #     :ip_id => parsed_params["ip"],
+    #     :client_id => { :identifier => parsed_params["identifier"], :rootUrl => parsed_params["rootUrl"]}
+    #   }
+    # end
 
     not_found do
       erb :error
