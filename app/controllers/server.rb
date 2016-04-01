@@ -27,9 +27,9 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
-      client = Client.find_by(:identifier => identifier)
       binding.pry
-      payload = PayloadRequest.new(params[:payload])
+      client = Client.find_by(:identifier => identifier)
+      # payload = PayloadRequest.new(params[:payload])
       if client.nil?
         status 403
         body "Application Not Registered"
