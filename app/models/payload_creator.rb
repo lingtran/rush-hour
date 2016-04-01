@@ -1,5 +1,5 @@
 module RushHour
-  class PayloadCreator
+  module PayloadCreator
 
     def create_url(root, path)
       Url.find_or_create_by({root: root, path: path})
@@ -42,15 +42,15 @@ module RushHour
       params[:url] = parse_url(params[:url])
       PayloadRequest.new({
         # url_id => :root => params_parser(pr_params)[url].split[0]
-        :url_id       => create_url(, "/search#{i + 1}").id,
-        :requested_at => Date.new(:requested_at).to_s,
-        :responded_in_id => create_responded_in(i + 1).id,
-        :referred_by_id => create_referred_by("bing.com", "/search#{i + 1}").id,
+        :url_id       => create_url("google.com", "/search1").id,
+        :requested_at => Date.new(params[:requested_at]),
+        :responded_in_id => create_responded_in(1).id,
+        :referred_by_id => create_referred_by("bing.com", "/search1").id,
         :request_type_id => create_request_type("GET").id,
-        :event_name_id => create_event_name("eventName #{i + 1}").id,
-        :user_agent_id => create_user_agent("OSX#{i + 1}", "Chrome #{i + 1}").id,
-        :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
-        :ip_id => create_ip("127.0.0.#{i + 1}").id,
+        :event_name_id => create_event_name("eventName 1").id,
+        :user_agent_id => create_user_agent("OSX1", "Chrome 1").id,
+        :resolution_id => create_resolution("resolutionWidth 1", "resolutionHeight 1").id,
+        :ip_id => create_ip("127.0.0.1").id,
         :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
         })
     end
@@ -70,5 +70,6 @@ module RushHour
     def params_parser(params)
       parsed = JSON.parse(params[:payload], {:symbolize_names => true})
     end
+
   end
 end

@@ -5,8 +5,8 @@ module RushHour
     validates :event_name, presence: true, uniqueness: true
 
     def self.ordered_events
+      binding.pry
       joins(:payload_requests).group(:event_name).order("count_all desc").count
     end
   end
-
 end

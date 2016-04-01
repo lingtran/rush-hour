@@ -35,16 +35,16 @@ module RushHour
     end
 
     def test_max_response_time
-      create_payload_requests(1)
-      create_payload_requests(2)
+      create_test_payload_requests(1)
+      create_test_payload_requests(2)
       assert_equal 2, Url.last.max_response_time_by_url
       assert_equal 1, Url.first.max_response_time_by_url
     end
 
 
     def test_min_response_time_by_url
-      create_payload_requests(3)
-      create_payload_requests(3)
+      create_test_payload_requests(3)
+      create_test_payload_requests(3)
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search3").id,
         :requested_at => Date.new(2016, 01, 01),
@@ -65,8 +65,8 @@ module RushHour
     end
     #
     def test_average_response_time_by_url
-      create_payload_requests
-      create_payload_requests
+      create_test_payload_requests
+      create_test_payload_requests
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search1").id,
         :requested_at => Date.new(2016, 01, 01),
@@ -84,7 +84,7 @@ module RushHour
     end
 
     def test_all_response_times_for_url_are_ordered
-      create_payload_requests
+      create_test_payload_requests
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search1").id,
         :requested_at => Date.new(2016, 01, 01),
@@ -102,8 +102,8 @@ module RushHour
     end
 
     def test_all_http_verbs_by_url
-      create_payload_requests
-      create_payload_requests
+      create_test_payload_requests
+      create_test_payload_requests
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search1").id,
         :requested_at => Date.new(2016, 01, 01),
@@ -140,9 +140,9 @@ module RushHour
     end
 
     def test_list_of_urls_listed_form_most_requested_to_least_requested
-      create_payload_requests(3)
-      create_payload_requests(2)
-      create_payload_requests
+      create_test_payload_requests(3)
+      create_test_payload_requests(2)
+      create_test_payload_requests
 
       result = ["google.com/search1", "google.com/search2", "google.com/search3"]
       assert_equal result, PayloadRequest.list_of_urls

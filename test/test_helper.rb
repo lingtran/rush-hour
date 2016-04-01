@@ -16,56 +16,57 @@ Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 module RushHour
   module TestHelpers
+    include PayloadCreator
+    #
+    # def setup
+    #   DatabaseCleaner.start
+    # end
+    #
+    # def teardown
+    #   DatabaseCleaner.clean
+    # end
+    #
+    # def create_url(root, path)
+    #   Url.find_or_create_by({root: root, path: path})
+    # end
+    #
+    # def create_responded_in(responded_in)
+    #   RespondedIn.find_or_create_by({:responded_in => responded_in})
+    # end
+    #
+    # def create_referred_by(root, path)
+    #   ReferredBy.find_or_create_by({root: root, path: path})
+    # end
+    #
+    # def create_request_type(request_type)
+    #   RequestType.find_or_create_by({:verb => request_type})
+    # end
+    #
+    # def create_event_name(event_name)
+    #   EventName.find_or_create_by({:event_name => event_name})
+    # end
+    #
+    # def create_user_agent(os, browser)
+    #   UserAgent.find_or_create_by({os: os, browser: browser})
+    # end
+    #
+    # def create_resolution(width, height)
+    #   Resolution.find_or_create_by({width: width, height: height})
+    # end
+    #
+    # def create_ip(ip)
+    #   Ip.find_or_create_by({:ip => ip})
+    # end
+    #
+    # def create_client(identifier, rootUrl)
+    #   Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+    # end
 
-    def setup
-      DatabaseCleaner.start
-    end
-
-    def teardown
-      DatabaseCleaner.clean
-    end
-
-    def create_url(root, path)
-      Url.find_or_create_by({root: root, path: path})
-    end
-
-    def create_responded_in(responded_in)
-      RespondedIn.find_or_create_by({:responded_in => responded_in})
-    end
-
-    def create_referred_by(root, path)
-      ReferredBy.find_or_create_by({root: root, path: path})
-    end
-
-    def create_request_type(request_type)
-      RequestType.find_or_create_by({:verb => request_type})
-    end
-
-    def create_event_name(event_name)
-      EventName.find_or_create_by({:event_name => event_name})
-    end
-
-    def create_user_agent(os, browser)
-      UserAgent.find_or_create_by({os: os, browser: browser})
-    end
-
-    def create_resolution(width, height)
-      Resolution.find_or_create_by({width: width, height: height})
-    end
-
-    def create_ip(ip)
-      Ip.find_or_create_by({:ip => ip})
-    end
-
-    def create_client(identifier, rootUrl)
-      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
-    end
-
-    def create_payload_requests(num = 1)
+    def create_test_payload_requests(num = 1)
       num.times do |i|
         PayloadRequest.create({
           :url_id       => create_url("google.com", "/search#{i + 1}").id,
-          :requested_at => Date.new(2016, 01, 01),
+          :requested_at => Date.new(2016, 01, i+1),
           :responded_in_id => create_responded_in(i + 1).id,
           :referred_by_id => create_referred_by("bing.com", "/search#{i + 1}").id,
           :request_type_id => create_request_type("GET").id,
@@ -78,7 +79,7 @@ module RushHour
       end
     end
 
-    def create_payload_specific_url(num = 1)
+    def create_test_payload_specific_url(num = 1)
       num.times do |i|
         PayloadRequest.create({
           :url_id       => create_url("google.com", "/search1").id,
@@ -91,7 +92,6 @@ module RushHour
           :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
           :ip_id => create_ip("127.0.0.#{i + 1}").id,
           :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
-
           })
       end
     end

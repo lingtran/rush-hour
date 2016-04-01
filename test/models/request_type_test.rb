@@ -15,7 +15,7 @@ module RushHour
     end
 
     def test_most_frequent_request_type
-      create_payload_requests(2)
+      create_test_payload_requests(2)
       PayloadRequest.create({
         :url_id       => create_url("google.com", "/search").id,
         :requested_at => Date.new(2016, 01, 01),
@@ -35,7 +35,7 @@ module RushHour
   end
 
   def test_list_of_all_HTTP_verbs_used
-    create_payload_requests(2)
+    create_test_payload_requests(2)
     PayloadRequest.create({
       :url_id       => create_url("google.com", "/search").id,
       :requested_at => Date.new(2016, 01, 01),
