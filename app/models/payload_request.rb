@@ -22,6 +22,7 @@ module RushHour
     validates :ip_id, presence: true
     validates :client_id, presence: true
 
+
     def self.average_response_time
       joins(:responded_in).average(:responded_in)
     end
@@ -50,7 +51,7 @@ module RushHour
       joins(:resolution).pluck(:width, :height).map { |res| res.join(" x ")}
     end
 
-    
+
 
   end
 end
