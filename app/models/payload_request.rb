@@ -6,7 +6,6 @@ module RushHour
     belongs_to :client
     belongs_to :url
     belongs_to :request_type
-    belongs_to :responded_in
     belongs_to :referred_by
     belongs_to :event_name
     belongs_to :user_agent
@@ -15,7 +14,7 @@ module RushHour
 
     validates :url_id, presence: true
     validates :requested_at, presence: true
-    validates :responded_in_id, presence: true
+    validates :responded_in, presence: true
     validates :referred_by_id, presence: true
     validates :request_type_id, presence: true
     validates :event_name_id, presence: true
@@ -25,7 +24,7 @@ module RushHour
     validates :client_id, presence: true
     validates_uniqueness_of :client_id, scope: [:url_id,
                                                :requested_at,
-                                               :responded_in_id,
+                                               :responded_in,
                                                :referred_by_id,
                                                :request_type_id,
                                                :event_name_id,
