@@ -11,7 +11,7 @@ module RushHour
     end
 
     def self.all_http_verbs
-      RequestType.all
+      RequestType.all.pluck(:verb)
     end
 
   end
