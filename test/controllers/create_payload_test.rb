@@ -14,13 +14,13 @@ module RushHour
 
     def test_client_cannot_be_found
       assert_equal 0, Client.count
-      post '/sources/jumpstartlab/data', { payload: params["payload"]}
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"]}
 
       assert_equal 403, last_response.status
       assert_equal "Application Not Registered", last_response.body
       assert_equal 0, Client.count
     end
-
+    
     def test_payload_request_with_valid_attributes_and_uniqueness_can_be_created
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
       payload = create_payload(params["payload"], params["identifier"])
@@ -34,7 +34,7 @@ module RushHour
     end
 
     def test_client_payload_request_has_already_been_received
-      skip
+      # skip
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
 
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
@@ -47,7 +47,7 @@ module RushHour
     end
 
     def test_missing_payload_can_be_detected
-      skip 
+      skip
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
       assert_equal 400, last_response.status
       assert_equal "Missing Payload", last_response.body
