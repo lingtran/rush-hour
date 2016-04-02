@@ -35,12 +35,12 @@ module RushHour
       if client.nil?
         status 403
         body "Application Not Registered"
+      elsif payload.persisted?
+        status 403
+        body "Already Received Request"
       elsif payload.valid? && payload.save
         status 200
         body "It's all good"
-      elsif payload.valid? && !payload.nil?
-        status 403
-        body "Already Received Request"
       elsif payload.nil?
         status 400
         body "#{client.errors.full_messages.join(", ")}"
