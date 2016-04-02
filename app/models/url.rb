@@ -9,7 +9,6 @@ module RushHour
     validates :root, presence: true, uniqueness: {scope: :path}
     validates :path, presence: true
 
-
     def max_response_time_by_url
       responded_ins.maximum("responded_in")
     end
