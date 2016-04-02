@@ -99,8 +99,6 @@ module RushHour
       assert_equal 1, PayloadRequest.min_response_time
     end
 
-
-
     def test_web_browser_breakdown_across_all_requests
       create_payload_requests(2)
       assert_equal ["Chrome 1", "Chrome 2"], PayloadRequest.web_browser_breakdown
@@ -117,7 +115,15 @@ module RushHour
       assert_equal result, PayloadRequest.resolution_breakdown
     end
 
-
+    def test_can_validate_uniqueness_of_payload_request
+      skip
+      create_payload_requests(2)
+      payload_one = PayloadRequest.first
+      payload_two = PayloadRequest.last
+      payload_one.valid?
+      payload_two.valid?
+      assert_nil payload_two.errors.on(:client_id)
+    end
 
   end
 end

@@ -15,8 +15,9 @@ module RushHour
     end
 
     def test_cannot_send_duplicate_client
-      create_client("jumpstartlab", "jumpstartlab.com")
-      assert_equal create_client("jumpstartlab", "jumpstartlab.com")
+      client_two = create_client(identifier, "jumpstartlab1")
+      assert client_one.valid?
+      refute client_two.valid?
     end
   end
 end

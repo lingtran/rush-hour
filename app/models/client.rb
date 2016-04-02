@@ -6,4 +6,5 @@ module RushHour
     validates :identifier, presence: true, uniqueness: true
     validates :rootUrl, presence: true
   end
+
 end
