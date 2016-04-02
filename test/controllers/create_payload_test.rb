@@ -21,10 +21,18 @@ module RushHour
       assert_equal 0, Client.count
     end
 
+    def test_payload_request_with_valid_attributes_and_uniqueness_can_be_created
+      # create_payload(params["payload"], params["identifier"])
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"]}
+      assert_equal 1, Client.count
+      assert_equal 200, last_response.status
+      assert_equal "Client created", last_response.body
+    end
+
     def test_client_payload_request_has_already_been_received
       create_payload(params["payload"])
       assert_equal 1, Client.count
-      assert_equal 
+      assert_equal
       post '/sources/jumpstartlab/data', { payload: params["payload"]}
 
     end

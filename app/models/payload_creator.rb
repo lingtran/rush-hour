@@ -32,12 +32,12 @@
       RushHour::Ip.find_or_create_by({:ip => ip})
     end
 
-    def create_client(identifier, rootUrl)
+    def create_client(identifier, rootUrl=nil)
       RushHour::Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
     end
 
-    def create_payload(pr_params)
-      params = params_parser(pr_params)
+    def create_payload(params_payload, params_identifier)
+      params = params_parser(params_payload)
       new_url = parse_url(params[:url])
       new_referred_by = parse_url(params[:referredBy])
       new_user_agent = parse_user_agent(params[:userAgent])
@@ -52,7 +52,7 @@
         :user_agent_id => create_user_agent(new_user_agent.platform, new_user_agent.browser).id,
         :resolution_id => create_resolution(params[:resolutionWidth], params[:resolutionHeight]).id,
         :ip_id => create_ip(params[:ip]).id,
-        :client_id => create_client(pr_params["identifier"], pr_params["rootUrl"]).id
+        :client_id => create_client(params_identifier).id
         })
     end
 
