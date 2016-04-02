@@ -33,19 +33,23 @@ module RushHour
                                                :ip_id]
 
     def self.average_response_time
-      joins(:responded_in).average(:responded_in)
+      average(:responded_in)
+      # test
     end
 
     def self.max_response_time
-      joins(:responded_in).maximum(:responded_in)
+      maximum(:responded_in)
+      # test
     end
 
     def self.min_response_time
-      joins(:responded_in).minimum(:responded_in)
+      minimum(:responded_in)
+      # test
     end
 
     def self.list_of_urls
-      joins(:url).pluck(:root, :path).map { |url| url.join }.uniq
+      # test is in url_test and not in payload_request_one => move this method or move the test? or neither?
+      joins(:url).pluck(:root, :path).map { |url| url.join("/") }.uniq
     end
 
     def self.web_browser_breakdown

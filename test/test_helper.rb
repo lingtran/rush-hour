@@ -162,13 +162,13 @@ module RushHour
       }
 
       @payload_request1 = PayloadRequest.create(payload1)
-      @payload_request2 = PayloadRequest.create(payload1)
-      @payload_request3 = PayloadRequest.create(payload1)
-      @payload_request4 = PayloadRequest.create(payload1)
-      @payload_request5 = PayloadRequest.create(payload1)
-      @payload_request6 = PayloadRequest.create(payload1)
-      @payload_request7 = PayloadRequest.create(payload1)
-      @payload_request8 = PayloadRequest.create(payload1)
+      @payload_request2 = PayloadRequest.create(payload2)
+      @payload_request3 = PayloadRequest.create(payload3)
+      @payload_request4 = PayloadRequest.create(payload4)
+      @payload_request5 = PayloadRequest.create(payload5)
+      @payload_request6 = PayloadRequest.create(payload6)
+      @payload_request7 = PayloadRequest.create(payload7)
+      @payload_request8 = PayloadRequest.create(payload8)
 
     end
 
