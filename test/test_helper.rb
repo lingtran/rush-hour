@@ -24,42 +24,42 @@ module RushHour
     def teardown
       DatabaseCleaner.clean
     end
-
-    def create_url(root, path)
-      Url.find_or_create_by({root: root, path: path})
-    end
-
-    def create_responded_in(responded_in)
-      RespondedIn.find_or_create_by({:responded_in => responded_in})
-    end
-
-    def create_referred_by(root, path)
-      ReferredBy.find_or_create_by({root: root, path: path})
-    end
-
-    def create_request_type(request_type)
-      RequestType.find_or_create_by({:verb => request_type})
-    end
-
-    def create_event_name(event_name)
-      EventName.find_or_create_by({:event_name => event_name})
-    end
-
-    def create_user_agent(os, browser)
-      UserAgent.find_or_create_by({os: os, browser: browser})
-    end
-
-    def create_resolution(width, height)
-      Resolution.find_or_create_by({width: width, height: height})
-    end
-
-    def create_ip(ip)
-      Ip.find_or_create_by({:ip => ip})
-    end
-
-    def create_client(identifier, rootUrl)
-      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
-    end
+    # 
+    # def create_url(root, path)
+    #   Url.find_or_create_by({root: root, path: path})
+    # end
+    #
+    # def create_responded_in(responded_in)
+    #   RespondedIn.find_or_create_by({:responded_in => responded_in})
+    # end
+    #
+    # def create_referred_by(root, path)
+    #   ReferredBy.find_or_create_by({root: root, path: path})
+    # end
+    #
+    # def create_request_type(request_type)
+    #   RequestType.find_or_create_by({:verb => request_type})
+    # end
+    #
+    # def create_event_name(event_name)
+    #   EventName.find_or_create_by({:event_name => event_name})
+    # end
+    #
+    # def create_user_agent(os, browser)
+    #   UserAgent.find_or_create_by({os: os, browser: browser})
+    # end
+    #
+    # def create_resolution(width, height)
+    #   Resolution.find_or_create_by({width: width, height: height})
+    # end
+    #
+    # def create_ip(ip)
+    #   Ip.find_or_create_by({:ip => ip})
+    # end
+    #
+    # def create_client(identifier, rootUrl)
+    #   Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+    # end
 
     def create_payload_requests(num = 1)
       num.times do |i|
@@ -96,6 +96,30 @@ module RushHour
       end
     end
 
+    def params
+  {"payload"=>
+"{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
+"splat"=>[],
+"captures"=>["jumpstartlab1"],
+"identifier"=>"jumpstartlab1",
+    "rootUrl"=>"http://jumpstartlab.com"}
+    end
+
+    def payload_data
+      {
+        url:"http://jumpstartlab.com/blog",
+        requestedAt:"2013-02-16 21:38:28 -0700",
+        respondedIn:37,
+        referredBy:"http://jumpstartlab.com",
+        requestType:"GET",
+        parameters:[],
+        eventName:"socialLogin",
+        userAgent:"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+        resolutionWidth:"1920",
+        resolutionHeight:"1280",
+        ip:"63.29.38.211"
+      }.to_json
+    end
 
   end
 end

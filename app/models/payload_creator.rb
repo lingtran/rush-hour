@@ -1,40 +1,39 @@
-module RushHour
   module PayloadCreator
 
     def create_url(root, path)
-      Url.find_or_create_by({root: root, path: path})
+      RushHour::Url.find_or_create_by({root: root, path: path})
     end
 
     def create_responded_in(responded_in)
-      RespondedIn.find_or_create_by({:responded_in => responded_in})
+      RushHour::RespondedIn.find_or_create_by({:responded_in => responded_in})
     end
 
     def create_referred_by(root, path)
-      ReferredBy.find_or_create_by({root: root, path: path})
+      RushHour::ReferredBy.find_or_create_by({root: root, path: path})
     end
 
     def create_request_type(request_type)
-      RequestType.find_or_create_by({:verb => request_type})
+      RushHour::RequestType.find_or_create_by({:verb => request_type})
     end
 
     def create_event_name(event_name)
-      EventName.find_or_create_by({:event_name => event_name})
+      RushHour::EventName.find_or_create_by({:event_name => event_name})
     end
 
     def create_user_agent(os, browser)
-      UserAgent.find_or_create_by({os: os, browser: browser})
+      RushHour::UserAgent.find_or_create_by({os: os, browser: browser})
     end
 
     def create_resolution(width, height)
-      Resolution.find_or_create_by({width: width, height: height})
+      RushHour::Resolution.find_or_create_by({width: width, height: height})
     end
 
     def create_ip(ip)
-      Ip.find_or_create_by({:ip => ip})
+      RushHour::Ip.find_or_create_by({:ip => ip})
     end
 
     def create_client(identifier, rootUrl)
-      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+      RushHour::Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
     end
 
     def create_payload(pr_params)
@@ -45,7 +44,7 @@ module RushHour
       # need to add timezone to requested_at
       payload = PayloadRequest.new({
         :url_id       => create_url(new_url[:root], new_url[:path]).id,
-        :requested_at => Date.strptime(params[:requestedAt], "%F %H:%M:%S").to_s,
+        :requested_at => Date.strptime(params[:requestedAt], "%F %H:%M:%S"),
         :responded_in_id => create_responded_in(params[:respondedIn]).id,
         :referred_by_id => create_referred_by(new_referred_by[:root], new_referred_by[:path]).id,
         :request_type_id => create_request_type(params[:requestType]).id,
@@ -53,9 +52,8 @@ module RushHour
         :user_agent_id => create_user_agent(new_user_agent.platform, new_user_agent.browser).id,
         :resolution_id => create_resolution(params[:resolutionWidth], params[:resolutionHeight]).id,
         :ip_id => create_ip(params[:ip]).id,
-        :client_id => create_client(pr_params[:identifier], pr_params[:rootUrl]).id
+        :client_id => create_client(pr_params["identifier"], pr_params["rootUrl"]).id
         })
-        binding.pry
     end
 
     def parse_user_agent(user_agent)
@@ -79,4 +77,3 @@ module RushHour
       JSON.parse(params["payload"], {:symbolize_names => true})
     end
   end
-end

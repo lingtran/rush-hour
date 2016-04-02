@@ -10,13 +10,14 @@ module RushHour
       RushHour::Server
     end
 
-    def params
-      {"payload"=>
- "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
-"splat"=>[],
-"captures"=>["jumpstartlab1"],
-"identifier"=>"jumpstartlab1"}
-    end
+#     def params
+#       {"payload"=>
+#  "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
+# "splat"=>[],
+# "captures"=>["jumpstartlab1"],
+# "identifier"=>"jumpstartlab1",
+# "rootUrl"=>"http://jumpstartlab.com"}
+#     end
 
     def test_can_parse_params
 
@@ -53,6 +54,15 @@ module RushHour
     def test_can_create_payload
       payload = create_payload(params)
       assert_equal 1, payload.url_id
+      assert payload.requested_at.is_a?(Date)
+      assert_equal 1, payload.responded_in_id
+      assert_equal 1, payload.referred_by_id
+      assert_equal 1, payload.request_type_id
+      assert_equal 1, payload.event_name_id
+      assert_equal 1, payload.user_agent_id
+      assert_equal 1, payload.resolution_id
+      assert_equal 1, payload.ip_id
+      assert_equal 1, payload.client_id
     end
 
   end

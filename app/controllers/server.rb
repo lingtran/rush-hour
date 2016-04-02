@@ -1,5 +1,8 @@
+require_relative "../models/payload_creator"
 module RushHour
+
   class Server < Sinatra::Base
+    include PayloadCreator
 
     get '/' do
       'hello, world!'
@@ -27,9 +30,8 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
-      binding.pry
-      client = Client.find_by(:identifier => identifier)
-      # payload = PayloadRequest.new(params[:payload])
+      client = Client.find_by(:identifier => params["identifier"])
+      payload = create_payload(params["payload"])
       if client.nil?
         status 403
         body "Application Not Registered"
