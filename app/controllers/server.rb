@@ -32,11 +32,14 @@ module RushHour
       # body(process_payload.body_content)
       # what to do about the rootUrl?
       client = Client.find_by(:identifier => params["identifier"])
-      payload = create_payload(params["payload"])
+      payload = create_payload(params["payload"], params["identifier"])
       if client.nil?
         status 403
         body "Application Not Registered"
-      elsif payload.save
+      elsif payload.persisted?
+        status 403
+        body "Already Received Request"
+      elsif payload.valid? && payload.save
         status 200
         body "It's all good"
       elsif payload.nil?

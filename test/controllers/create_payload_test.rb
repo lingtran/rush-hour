@@ -14,53 +14,47 @@ module RushHour
 
     def test_client_cannot_be_found
       assert_equal 0, Client.count
-      binding.pry
-      post '/sources/jumpstartlab/data', { payload: params["payload"]}
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"]}
 
       assert_equal 403, last_response.status
       assert_equal "Application Not Registered", last_response.body
+      assert_equal 0, Client.count
     end
 
-    # def test_user_agent
-    #   ua = "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"
-    #   user_agent = ::UserAgent.parse(ua)
-    #   assert_equal "Chrome", user_agent.browser
-    # end
+    def test_payload_request_with_valid_attributes_and_uniqueness_can_be_created
+      Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
+      payload = create_payload(params["payload"], params["identifier"])
+      assert_equal 1, Client.count
+      assert payload.valid?
 
-    # def test_payload_request_can_be_created_with_valid_attributes
-    #   create_client("jumpstartlab", "jumpstartlab.com")
-    #   sample_payload = { url:"http://jumpstartlab.com/blog",
-    #                     requestedAt:"2013-02-16 21:38:28 -0700",
-    #                     respondedIn:37,
-    #                     referredBy:"http://jumpstartlab.com",
-    #                     requestType:"GET",
-    #                     parameters:[],
-    #                     eventName:"socialLogin",
-    #                     userAgent:"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    #                     resolutionWidth:"1920",
-    #                     resolutionHeight:"1280",
-    #                     ip:"63.29.38.211"
-    #                     }
-    #   post '/sources/jumpstartlab/data', sample_payload
-    #   prl = PayloadRequest.last
-    #   assert_equal 200, last_response.status
-    #   assert_equal "OK", last_response.body
-    #   assert_equal 1, PayloadRequest.count
-    #   assert_equal "jumpstartlab.com", prl.url.root
-    #   assert_equal "/blog", prl.url.path
-    #   assert_equal Date.strptime("2013-02-16 21:38:28 -0700", "%Y-%m-%d %H:%M:%S %Z"), prl.requested_at.requested_at
-    #   assert_equal 37, prl.responded_in.responded_in
-    #   assert_equal "jumpstartlab.com", prl.referred_by.root
-    #   assert_equal "", prl.referred_by.path
-    #   assert_equal "GET", prl.request_type.verb
-    #   assert_equal "socalLogin", prl.event_name.event_name
-    #   # assert_equal "Mozilla", prl.user_agent
-    #   # assert_includes "OSX", prl.user_agent
-    #   assert_equal "1920", prl.resolution.width
-    #   assert_equal "1280", prl.resolution.height
-    #   assert_equal "63.2938.211", prl.ip.ip
-    # end
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
+      assert_equal 1, Client.count
+      assert_equal 200, last_response.status
+      assert_equal "It's all good", last_response.body
+    end
 
+    def test_client_payload_request_has_already_been_received
+      skip
+      Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
 
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
+      assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
+      assert_equal 1, Client.count
+      assert_equal 1, PayloadRequest.count
+
+      post '/sources/jumpstartlab/data', { payload: params_two["payload"], identifier: params_two["identifier"] }
+      assert_equal 403, last_response.status
+      assert_equal "Already Received Request", last_response.body
+      assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
+# If the request payload has already been received return status 403 Forbidden with a descriptive error message.
+    end
+
+    def test_missing_payload_can_be_detected
+      # skip
+      post '/sources/jumpstartlab/data', { payload: params_missing["payload"], identifier: params_missing["identifier"] }
+      assert_equal 400, last_response.status
+      assert_equal "Missing Payload", last_response.body
+      # If the payload is missing, return status 400 Bad Request with a descriptive error message.
+    end
   end
 end
