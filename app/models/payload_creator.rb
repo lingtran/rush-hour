@@ -42,7 +42,7 @@
       new_referred_by = parse_url(params[:referredBy])
       new_user_agent = parse_user_agent(params[:userAgent])
       # need to add timezone to requested_at
-      payload = PayloadRequest.new({
+      payload = RushHour::PayloadRequest.new({
         :url_id       => create_url(new_url[:root], new_url[:path]).id,
         :requested_at => Date.strptime(params[:requestedAt], "%F %H:%M:%S"),
         :responded_in_id => create_responded_in(params[:respondedIn]).id,
@@ -74,6 +74,6 @@
     end
 
     def params_parser(params)
-      JSON.parse(params["payload"], {:symbolize_names => true})
+      JSON.parse(params, {:symbolize_names => true})
     end
   end

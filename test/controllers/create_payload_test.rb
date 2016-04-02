@@ -14,12 +14,22 @@ module RushHour
 
     def test_client_cannot_be_found
       assert_equal 0, Client.count
-      binding.pry
       post '/sources/jumpstartlab/data', { payload: params["payload"]}
 
       assert_equal 403, last_response.status
       assert_equal "Application Not Registered", last_response.body
+      assert_equal 0, Client.count
     end
+
+    def test_client_payload_request_has_already_been_received
+      create_payload(params["payload"])
+      assert_equal 1, Client.count
+      assert_equal 
+      post '/sources/jumpstartlab/data', { payload: params["payload"]}
+
+    end
+
+
 
     # def test_user_agent
     #   ua = "Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17"

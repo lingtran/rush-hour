@@ -24,42 +24,42 @@ module RushHour
     def teardown
       DatabaseCleaner.clean
     end
-    # 
-    # def create_url(root, path)
-    #   Url.find_or_create_by({root: root, path: path})
-    # end
-    #
-    # def create_responded_in(responded_in)
-    #   RespondedIn.find_or_create_by({:responded_in => responded_in})
-    # end
-    #
-    # def create_referred_by(root, path)
-    #   ReferredBy.find_or_create_by({root: root, path: path})
-    # end
-    #
-    # def create_request_type(request_type)
-    #   RequestType.find_or_create_by({:verb => request_type})
-    # end
-    #
-    # def create_event_name(event_name)
-    #   EventName.find_or_create_by({:event_name => event_name})
-    # end
-    #
-    # def create_user_agent(os, browser)
-    #   UserAgent.find_or_create_by({os: os, browser: browser})
-    # end
-    #
-    # def create_resolution(width, height)
-    #   Resolution.find_or_create_by({width: width, height: height})
-    # end
-    #
-    # def create_ip(ip)
-    #   Ip.find_or_create_by({:ip => ip})
-    # end
-    #
-    # def create_client(identifier, rootUrl)
-    #   Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
-    # end
+
+    def create_url(root, path)
+      Url.find_or_create_by({root: root, path: path})
+    end
+
+    def create_responded_in(responded_in)
+      RespondedIn.find_or_create_by({:responded_in => responded_in})
+    end
+
+    def create_referred_by(root, path)
+      ReferredBy.find_or_create_by({root: root, path: path})
+    end
+
+    def create_request_type(request_type)
+      RequestType.find_or_create_by({:verb => request_type})
+    end
+
+    def create_event_name(event_name)
+      EventName.find_or_create_by({:event_name => event_name})
+    end
+
+    def create_user_agent(os, browser)
+      UserAgent.find_or_create_by({os: os, browser: browser})
+    end
+
+    def create_resolution(width, height)
+      Resolution.find_or_create_by({width: width, height: height})
+    end
+
+    def create_ip(ip)
+      Ip.find_or_create_by({:ip => ip})
+    end
+
+    def create_client(identifier, rootUrl)
+      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
+    end
 
     def create_payload_requests(num = 1)
       num.times do |i|
