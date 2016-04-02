@@ -1,6 +1,8 @@
 module RushHour
 
   class PayloadRequest < ActiveRecord::Base
+    include PayloadCreator
+
     belongs_to :client
     belongs_to :url
     belongs_to :request_type
