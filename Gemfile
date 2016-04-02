@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra', require: 'sinatra/base'
 gem 'pg'
+gem 'rake'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'useragent'

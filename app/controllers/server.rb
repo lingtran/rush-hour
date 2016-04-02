@@ -5,7 +5,8 @@ module RushHour
     include PayloadCreator
 
     get '/' do
-      'hello, world!'
+      erb :home, :layout => :home
+      # erb :dashboard
     end
 
     post '/sources' do
