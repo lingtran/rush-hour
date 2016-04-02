@@ -3,10 +3,12 @@ require_relative '../test_helper'
 module RushHour
   class RequestTypeTest < Minitest::Test
     include TestHelpers
+    include PayloadCreator
 
-    def test_request_type_class_can_be_created
+    def test_request_type_class_can_be_created_but_not_duplicated_or_blank
       assert RequestType.create({:verb => "Get"})
       refute RequestType.new.valid?
+      refute RequestType.new({:verb => "Get"}).save
     end
 
     def test_request_type_has_payload_requests
@@ -15,39 +17,15 @@ module RushHour
     end
 
     def test_most_frequent_request_type
-      create_payload_requests(2)
-      PayloadRequest.create({
-        :url_id       => create_url("google.com", "/search").id,
-        :requested_at => Date.new(2016, 01, 01),
-        :responded_in_id => create_responded_in(1).id,
-        :referred_by_id => create_referred_by("bing.com", "/search1").id,
-        :request_type_id => create_request_type("POST").id,
-        :event_name_id => create_event_name("eventName").id,
-        :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
-        :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
-        :ip_id => create_ip("127.0.0.27").id,
-        :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
-        })
+      create_data
 
-      assert_equal "GET", RequestType.most_frequent_request_type
+      assert_equal "POST", RequestType.most_frequent_request_type
     end
 
   end
 
   def test_list_of_all_HTTP_verbs_used
-    create_payload_requests(2)
-    PayloadRequest.create({
-      :url_id       => create_url("google.com", "/search").id,
-      :requested_at => Date.new(2016, 01, 01),
-      :responded_in_id => create_responded_in(1).id,
-      :referred_by_id => create_referred_by("bing.com", "/search1").id,
-      :request_type_id => create_request_type("POST").id,
-      :event_name_id => create_event_name("eventName").id,
-      :user_agent_id => create_user_agent("OSX1", "Chrome ").id,
-      :resolution_id => create_resolution("resolutionWidth ", "resolutionHeight ").id,
-      :ip_id => create_ip("127.0.0.32").id,
-      :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
-      })
+    create_data
 
     assert_equal ["GET", "POST"], RequestType.all_http_verbs
   end

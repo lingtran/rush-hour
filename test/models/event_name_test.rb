@@ -3,10 +3,12 @@ require_relative '../test_helper'
 module RushHour
   class EventNameTest < Minitest::Test
     include TestHelpers
+    include PayloadCreator
 
-    def test_event_name_class_can_be_created
+    def test_event_name_class_can_be_created_and_not_duplicated
       assert EventName.create({:event_name => "Login"})
       refute EventName.new.valid?
+      refute EventName.new({:event_name => "Login"}).save
     end
 
     def test_event_name_has_payload_requests
@@ -15,10 +17,8 @@ module RushHour
     end
 
     def test_events_listed_from_most_received_to_least
-      create_payload_requests(3)
-      create_payload_requests(2)
-      create_payload_requests
-      assert_equal ({"eventName 1"=>3, "eventName 2"=>2, "eventName 3"=>1}), EventName.ordered_events
+      create_data
+      assert_equal ({"event1"=>4, "event2"=>3, "event3"=>1}), EventName.ordered_events
     end
   end
 end

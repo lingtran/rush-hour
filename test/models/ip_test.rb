@@ -5,9 +5,10 @@ module RushHour
     include TestHelpers
     include PayloadCreator
 
-    def test_ip_class_can_be_created
+    def test_ip_class_can_be_created_and_duplicate_cannot
       assert Ip.create({:ip => "127.0.0.1"})
       refute Ip.new.valid?
+      refute Ip.new({:ip => "127.0.0.1"}).save
     end
 
     def test_ip_has_payload_requests
@@ -15,9 +16,5 @@ module RushHour
       assert_respond_to ip_address, :payload_requests
     end
 
-    def test_test_helper
-      create_data
-      assert_equal 1, PayloadRequest.find(1).ip_id
-    end
   end
 end

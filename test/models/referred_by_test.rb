@@ -3,10 +3,12 @@ require_relative '../test_helper'
 module RushHour
   class ReferredByTest < Minitest::Test
     include TestHelpers
+    include PayloadCreator
 
-    def test_referred_by_class_can_be_created
+    def test_referred_by_class_can_be_created_but_not_duplicated_or_blank
       assert ReferredBy.create({:root => "www.google.com", :path => "/gmail"})
       refute ReferredBy.new.valid?
+      refute ReferredBy.new({:root => "www.google.com", :path => "/gmail"}).save
     end
 
     def test_referred_by_has_payload_requests

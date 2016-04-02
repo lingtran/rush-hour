@@ -32,13 +32,13 @@ module RushHour
       @request_type1 = RequestType.create({verb: "GET"})
       @request_type2 = RequestType.create({verb: "POST"})
 
-      @event1 = EventName.create({event_name: "socialLogin"})
-      @event2 = EventName.create({event_name: "newsBreaks"})
+      @event1 = EventName.create({event_name: "event1"})
+      @event2 = EventName.create({event_name: "event2"})
+      @event3 = EventName.create({event_name: "event3"})
 
       @agent1 = UserAgent.create({browser: "Chrome", os: "Macintosh"})
       @agent2 = UserAgent.create({browser: "Safari", os: "Macintosh"})
       @agent3 = UserAgent.create({browser: "Mozilla", os: "Windows"})
-      @agent4  = UserAgent.create({browser: "Chrome", os: "Windows"})
 
       @url1 = Url.create({root: "jumpstartlab.com", path: "blog"})
       @url2 = Url.create({root: "jumpstartlab.com", path: "exam"})
@@ -47,8 +47,6 @@ module RushHour
       @referral1 = ReferredBy.create({root: "jumpstartlab.com", path: "path1"})
       @referral2 = ReferredBy.create({root: "jumpstartlab.com", path: "path2"})
       @referral3 = ReferredBy.create({root: "jumpstartlab.com", path: "path3"})
-      @referral4 = ReferredBy.create({root: "jumpstartlab.com", path: "path4"})
-      @referral5 = ReferredBy.create({root: "jumpstartlab.com", path: "path5"})
 
       @client1 = Client.create({identifier: "turing", rootUrl: "http://turing.io"})
       @client2 = Client.create({identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"})
@@ -62,7 +60,7 @@ module RushHour
           requested_at: "2015-04-01 12:30:40 -700",
           responded_in: 60,
           referred_by_id: @referral1.id,
-          request_type_id: @request_type1.id,
+          request_type_id: @request_type2.id,
           event_name_id: @event1.id,
           user_agent_id: @agent1.id,
           resolution_id: @resolution1.id,
@@ -75,7 +73,7 @@ module RushHour
           requested_at: "2015-04-01 12:30:40 -700",
           responded_in: 61,
           referred_by_id: @referral2.id,
-          request_type_id: @request_type1.id,
+          request_type_id: @request_type2.id,
           event_name_id: @event2.id,
           user_agent_id: @agent2.id,
           resolution_id: @resolution2.id,
@@ -100,10 +98,10 @@ module RushHour
           url_id: @url3.id,
           requested_at: "2015-04-01 12:30:40 -700",
           responded_in: 61,
-          referred_by_id: @referral4.id,
+          referred_by_id: @referral3.id,
           request_type_id: @request_type1.id,
-          event_name_id: @event2.id,
-          user_agent_id: @agent4.id,
+          event_name_id: @event3.id,
+          user_agent_id: @agent3.id,
           resolution_id: @resolution1.id,
           ip_id: @ip1.id,
           client_id: @client2.id
@@ -113,10 +111,10 @@ module RushHour
           url_id: @url2.id,
           requested_at: "2015-04-01 12:30:40 -700",
           responded_in: 62,
-          referred_by_id: @referral5.id,
+          referred_by_id: @referral3.id,
           request_type_id: @request_type2.id,
-          event_name_id: @event1.id,
-          user_agent_id: @agent4.id,
+          event_name_id: @event2.id,
+          user_agent_id: @agent2.id,
           resolution_id: @resolution2.id,
           ip_id: @ip2.id,
           client_id: @client1.id
@@ -128,7 +126,7 @@ module RushHour
           responded_in: 65,
           referred_by_id: @referral2.id,
           request_type_id: @request_type1.id,
-          event_name_id: @event2.id,
+          event_name_id: @event1.id,
           user_agent_id: @agent3.id,
           resolution_id: @resolution2.id,
           ip_id: @ip1.id,
@@ -152,7 +150,7 @@ module RushHour
           url_id: @url3.id,
           requested_at: "2015-04-01 12:30:40 -700",
           responded_in: 65,
-          referred_by_id: @referral3.id,
+          referred_by_id: @referral2.id,
           request_type_id: @request_type1.id,
           event_name_id: @event2.id,
           user_agent_id: @agent3.id,
