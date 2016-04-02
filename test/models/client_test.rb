@@ -3,24 +3,26 @@ require_relative '../test_helper'
 module RushHour
   class ClientTest < Minitest::Test
     include TestHelpers
+    include PayloadCreator
 
     def test_client_class_can_be_created
+
       assert Client.create({ :identifier => "jumpstartlab", :rootUrl => "http://jumpstartlab.com" })
       refute Client.new.valid?
     end
 
     def test_client_has_payload_requests
-      client = create_client("jumpstartlab", "jumpstartlab.com")
+      client = Client.create(:identifier => "jumpstartlab", :rootUrl => "jumpstartlab.com")
       assert_respond_to client, :payload_requests
     end
 
     def test_cannot_send_duplicate_client
-      client_two = create_client(identifier, "jumpstartlab1")
+      client_one = Client.create(:identifier => "jumpstartlab", :rootUrl => "jumpstartlab.com")
+
+      client_two = Client.create(:identifier => "jumpstartlab", :rootUrl => "jumpstartlab.com")
       assert client_one.valid?
       refute client_two.valid?
     end
 
-    def test_can_get_average_response_time_for_all_requests
-      
   end
 end

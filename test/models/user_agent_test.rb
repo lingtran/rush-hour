@@ -2,10 +2,12 @@ require_relative '../test_helper'
 module RushHour
   class UserAgentTest < Minitest::Test
     include TestHelpers
+    include PayloadCreator
 
-    def test_user_agent_class_can_be_created
+    def test_user_agent_class_can_be_created_but_not_duplicated_or_blank
       assert UserAgent.create({:os => "osX", :browser => "chrome"})
       refute UserAgent.new.valid?
+      refute UserAgent.new({:os => "osX", :browser => "chrome"}).save
     end
 
     def test_user_agent_has_payload_requests
