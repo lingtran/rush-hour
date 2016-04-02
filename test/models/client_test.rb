@@ -19,5 +19,8 @@ module RushHour
       assert client_one.valid?
       refute client_two.valid?
     end
+
+    def test_can_get_average_response_time_for_all_requests
+      
   end
 end

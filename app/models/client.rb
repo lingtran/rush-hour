@@ -7,4 +7,7 @@ module RushHour
     validates :rootUrl, presence: true
   end
 
+  def self.response_time_all_requests
+    self.payload_requests.average_response_time
+  end
 end

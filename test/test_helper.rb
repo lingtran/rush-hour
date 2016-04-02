@@ -25,75 +25,151 @@ module RushHour
       DatabaseCleaner.clean
     end
 
-    def create_url(root, path)
-      Url.find_or_create_by({root: root, path: path})
-    end
+    def create_data
+      @resolution1 = Resolution.create({width: "1920", height: "1280"})
+      @resolution2 = Resolution.create({width: "800", height: "640"})
 
-    def create_responded_in(responded_in)
-      RespondedIn.find_or_create_by({:responded_in => responded_in})
-    end
+      @request_type1 = RequestType.create({verb: "GET"})
+      @request_type2 = RequestType.create({verb: "POST"})
 
-    def create_referred_by(root, path)
-      ReferredBy.find_or_create_by({root: root, path: path})
-    end
+      @event1 = EventName.create({event_name: "socialLogin"})
+      @event2 = EventName.create({event_name: "newsBreaks"})
 
-    def create_request_type(request_type)
-      RequestType.find_or_create_by({:verb => request_type})
-    end
+      @agent1 = UserAgent.create({browser: "Chrome", os: "Macintosh"})
+      @agent2 = UserAgent.create({browser: "Safari", os: "Macintosh"})
+      @agent3 = UserAgent.create({browser: "Mozilla", os: "Windows"})
+      @agent4  = UserAgent.create({browser: "Chrome", os: "Windows"})
 
-    def create_event_name(event_name)
-      EventName.find_or_create_by({:event_name => event_name})
-    end
+      @url1 = Url.create({root: "jumpstartlab.com", path: "blog"})
+      @url2 = Url.create({root: "jumpstartlab.com", path: "exam"})
+      @url3 = Url.create({root: "jumpstartlab.com", path: "home"})
 
-    def create_user_agent(os, browser)
-      UserAgent.find_or_create_by({os: os, browser: browser})
-    end
+      @referral1 = ReferredBy.create({root: "jumpstartlab.com", path: "path1"})
+      @referral2 = ReferredBy.create({root: "jumpstartlab.com", path: "path2"})
+      @referral3 = ReferredBy.create({root: "jumpstartlab.com", path: "path3"})
+      @referral4 = ReferredBy.create({root: "jumpstartlab.com", path: "path4"})
+      @referral5 = ReferredBy.create({root: "jumpstartlab.com", path: "path5"})
 
-    def create_resolution(width, height)
-      Resolution.find_or_create_by({width: width, height: height})
-    end
+      @client1 = Client.create({identifier: "turing", rootUrl: "http://turing.io"})
+      @client2 = Client.create({identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"})
 
-    def create_ip(ip)
-      Ip.find_or_create_by({:ip => ip})
-    end
+      @ip1 = Ip.create({ip: "127.0.0.1"})
+      @ip2 = Ip.create({ip: "127.0.0.2"})
+      @ip3 = Ip.create({ip: "127.0.0.3"})
 
-    def create_client(identifier, rootUrl)
-      Client.find_or_create_by({identifier: identifier, rootUrl: rootUrl })
-    end
+      payload1 = {
+          url_id: @url1.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 60,
+          referred_by_id: @referral1.id,
+          request_type_id: @request_type1.id,
+          event_name_id: @event1.id,
+          user_agent_id: @agent1.id,
+          resolution_id: @resolution1.id,
+          ip_id: @ip1.id,
+          client_id: @client1.id
+      }
 
-    def create_payload_requests(num = 1)
-      num.times do |i|
-        PayloadRequest.create({
-          :url_id       => create_url("google.com", "/search#{i + 1}").id,
-          :requested_at => Date.new(2016, 01, 01),
-          :responded_in_id => create_responded_in(i + 1).id,
-          :referred_by_id => create_referred_by("bing.com", "/search#{i + 1}").id,
-          :request_type_id => create_request_type("GET").id,
-          :event_name_id => create_event_name("eventName #{i + 1}").id,
-          :user_agent_id => create_user_agent("OSX#{i + 1}", "Chrome #{i + 1}").id,
-          :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
-          :ip_id => create_ip("127.0.0.#{i + 1}").id,
-          :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
-          })
-      end
-    end
+      payload2 = {
+          url_id: @url3.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 61,
+          referred_by_id: @referral2.id,
+          request_type_id: @request_type1.id,
+          event_name_id: @event2.id,
+          user_agent_id: @agent2.id,
+          resolution_id: @resolution2.id,
+          ip_id: @ip2.id,
+          client_id: @client2.id
+      }
 
-    def create_payload_specific_url(num = 1)
-      num.times do |i|
-        PayloadRequest.create({
-          :url_id       => create_url("google.com", "/search1").id,
-          :requested_at => Date.new(2016, 01, 01),
-          :responded_in_id => create_responded_in(i + 1).id,
-          :referred_by_id => create_referred_by("bing.com", "/search#{i + 1}").id,
-          :request_type_id => create_request_type("GET").id,
-          :event_name_id => create_event_name("eventName #{i + 1}").id,
-          :user_agent_id => create_user_agent("OSX#{i + 1}", "Chrome #{i + 1}").id,
-          :resolution_id => create_resolution("resolutionWidth #{i + 1}", "resolutionHeight #{i + 1}").id,
-          :ip_id => create_ip("127.0.0.#{i + 1}").id,
-          :client_id => create_client("jumpstartlab", "http://jumpstartlab.com").id
+      payload3 = {
+          url_id: @url2.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 62,
+          referred_by_id: @referral3.id,
+          request_type_id: @request_type2.id,
+          event_name_id: @event1.id,
+          user_agent_id: @agent2.id,
+          resolution_id: @resolution2.id,
+          ip_id: @ip3.id,
+          client_id: @client1.id
+      }
 
-          })
-      end
+      payload4 = {
+          url_id: @url3.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 61,
+          referred_by_id: @referral4.id,
+          request_type_id: @request_type1.id,
+          event_name_id: @event2.id,
+          user_agent_id: @agent4.id,
+          resolution_id: @resolution1.id,
+          ip_id: @ip1.id,
+          client_id: @client2.id
+      }
+
+      payload5 = {
+          url_id: @url2.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 62,
+          referred_by_id: @referral5.id,
+          request_type_id: @request_type2.id,
+          event_name_id: @event1.id,
+          user_agent_id: @agent4.id,
+          resolution_id: @resolution2.id,
+          ip_id: @ip2.id,
+          client_id: @client1.id
+      }
+
+      payload6 = {
+          url_id: @url1.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 65,
+          referred_by_id: @referral2.id,
+          request_type_id: @request_type1.id,
+          event_name_id: @event2.id,
+          user_agent_id: @agent3.id,
+          resolution_id: @resolution2.id,
+          ip_id: @ip1.id,
+          client_id: @client2.id
+      }
+
+      payload7 = {
+          url_id: @url2.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 62,
+          referred_by_id: @referral1.id,
+          request_type_id: @request_type2.id,
+          event_name_id: @event1.id,
+          user_agent_id: @agent3.id,
+          resolution_id: @resolution1.id,
+          ip_id: @ip3.id,
+          client_id: @client1.id
+      }
+
+      payload8 = {
+          url_id: @url3.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 65,
+          referred_by_id: @referral3.id,
+          request_type_id: @request_type1.id,
+          event_name_id: @event2.id,
+          user_agent_id: @agent3.id,
+          resolution_id: @resolution1.id,
+          ip_id: @ip3.id,
+          client_id: @client2.id
+      }
+
+      @payload_request1 = PayloadRequest.create(payload1)
+      @payload_request2 = PayloadRequest.create(payload1)
+      @payload_request3 = PayloadRequest.create(payload1)
+      @payload_request4 = PayloadRequest.create(payload1)
+      @payload_request5 = PayloadRequest.create(payload1)
+      @payload_request6 = PayloadRequest.create(payload1)
+      @payload_request7 = PayloadRequest.create(payload1)
+      @payload_request8 = PayloadRequest.create(payload1)
+
     end
 
     def params
