@@ -39,7 +39,7 @@ module RushHour
       parsed_params = params_parser(params)
       new_url = parse_url(parsed_params[:url])
       assert_equal "jumpstartlab.com", new_url[:root]
-      assert_equal "/blog", new_url[:path]
+      assert_equal "blog", new_url[:path]
     end
 
     def test_user_agent_can_be_parsed_with_user_agent_gem
@@ -55,7 +55,7 @@ module RushHour
       payload = create_payload(params)
       assert_equal 1, payload.url_id
       assert payload.requested_at.is_a?(Date)
-      assert_equal 1, payload.responded_in_id
+      assert_equal 37, payload.responded_in
       assert_equal 1, payload.referred_by_id
       assert_equal 1, payload.request_type_id
       assert_equal 1, payload.event_name_id
