@@ -4,6 +4,7 @@ module RushHour
   class CreateClientTest < Minitest::Test
     include Rack::Test::Methods
     include TestHelpers
+    include PayloadCreator
 
     def app
       RushHour::Server
@@ -29,7 +30,7 @@ module RushHour
 
     def test_cannot_create_a_client_if_identifier_already_exists
       assert_equal 0, Client.count
-      create_client("jumpstartlab", "http://jumpstartlab.com")
+      Client.create(:identifier => "jumpstartlab", :rootUrl => "http://jumpstartlab.com/")
       assert_equal 1, Client.count
       assert_equal "jumpstartlab", Client.last.identifier
 

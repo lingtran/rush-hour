@@ -33,7 +33,7 @@ module RushHour
       # what to do about the rootUrl?
       if params.nil?
         status 400
-        body "#{client.errors.full_messages.join(", ")}"
+        body "Shit's missing!"
       else
         client = Client.find_by(:identifier => params["identifier"])
         payload = create_payload(params)
@@ -42,16 +42,16 @@ module RushHour
           body "Application Not Registered"
         elsif payload.nil?
           status 400
-          body "#{client.errors.full_messages.join(", ")}"
+          body "Missing Payload"
+        elsif !payload.save
+          status 403
+          body "Already Received Request"
         elsif payload.save
           status 200
           body "It's all good"
-        elsif payload.persisted?
-          status 403
-          body "Already Received Request"
         else
           status 420
-          body "Shit's fucked"
+          body "Shit's fucked up."
         end
 
       end

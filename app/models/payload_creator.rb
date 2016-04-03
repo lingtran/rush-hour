@@ -29,6 +29,7 @@ module PayloadCreator
   end
 
   def create_payload(params_payload, params_identifier=nil)
+    return if params_payload["payload"].nil?
     params = params_parser(params_payload)
     new_url = parse_url(params[:url])
     new_referred_by = parse_url(params[:referredBy])
@@ -66,6 +67,7 @@ module PayloadCreator
   end
 
   def params_parser(params)
+
     JSON.parse(params["payload"], {:symbolize_names => true})
   end
 
