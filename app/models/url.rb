@@ -2,23 +2,15 @@ module RushHour
 
   class Url < ActiveRecord::Base
     has_many :payload_requests
-    has_many :responded_ins, through: :payload_requests
     has_many :request_types, through: :payload_requests
     has_many :referred_bies, through: :payload_requests
     has_many :user_agents, through: :payload_requests
     validates :root, presence: true, uniqueness: {scope: :path}
     validates :path, presence: true
 
-    def max_response_time_by_url
-      responded_ins.maximum("responded_in")
-    end
-
-    def min_response_time_by_url
-      responded_ins.minimum("responded_in")
-    end
 
     def all_response_times_for_url_ordered
-      responded_ins.pluck(:responded_in).sort.reverse
+      payload_requests.pluck(:responded_in).sort.reverse
     end
 
     def average_response_time_by_url

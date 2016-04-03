@@ -24,7 +24,7 @@ module RushHour
       result = {:url=>"http://jumpstartlab.com/blog",
       :requestedAt=>"2013-02-16 21:38:28 -0700",
       :respondedIn=>37,
-      :referredBy=>"http://jumpstartlab.com",
+      :referredBy=>"http://jumpstartlab.com/blog",
       :requestType=>"GET",
       :parameters=>[],
       :eventName=>"socialLogin",
@@ -52,7 +52,9 @@ module RushHour
     end
 
     def test_can_create_payload
-      payload = create_payload(params)
+      Client.create({identifier: "jumpstartlab", rootUrl: "jumpstartlab.com"})
+
+      payload = create_payload(params, params["identifier"])
       assert_equal 1, payload.url_id
       assert payload.requested_at.is_a?(Date)
       assert_equal 37, payload.responded_in

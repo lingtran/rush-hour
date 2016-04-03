@@ -15,11 +15,6 @@ module RushHour
       assert_respond_to url, :payload_requests
     end
 
-    def test_url_has_responded_ins
-      url = create_url("google.com", "search")
-      assert_respond_to url, :responded_ins
-    end
-
     def test_url_has_request_types
       url = create_url("google.com", "search")
       assert_respond_to url, :request_types
@@ -37,29 +32,29 @@ module RushHour
 
     def test_max_response_time
       create_data
-      assert_equal 2, Url.last.max_response_time_by_url
-      assert_equal 1, Url.first.max_response_time_by_url
+      assert_equal 62, Url.find(2).payload_requests.max_response_time
+      assert_equal 65, Url.find(3).payload_requests.max_response_time
     end
 
 
     def test_min_response_time_by_url
       create_data
 
-      assert_equal 3, Url.last.min_response_time_by_url
-      assert_equal 1, Url.first.min_response_time_by_url
+      assert_equal 61, Url.last.payload_requests.min_response_time
+      assert_equal 60, Url.first.payload_requests.min_response_time
 
     end
     #
     def test_average_response_time_by_url
       create_data
 
-      assert_equal 2.0, Url.last.average_response_time_by_url
+      assert_equal 62.33, Url.last.payload_requests.average_response_time.to_f.round(2)
     end
 
     def test_all_response_times_for_url_are_ordered
       create_data
 
-      assert_equal [3,1], Url.last.all_response_times_for_url_ordered
+      assert_equal [65, 61, 61], Url.last.all_response_times_for_url_ordered
     end
 
     def test_all_http_verbs_by_url
@@ -71,20 +66,20 @@ module RushHour
     def test_three_most_popular_referrers
       create_data
 
-      result = ["bing.com/search1: 4", "bing.com/search2: 3", "bing.com/search3: 2"]
+      result = ["jumpstartlab.compath1: 1", "jumpstartlab.compath2: 1"]
       assert_equal result, Url.first.three_most_popular_referrers
     end
 
     def test_three_most_popular_user_agents
       create_data
 
-      result = ["OSX1 Chrome 1: 4", "OSX2 Chrome 2: 3", "OSX3 Chrome 3: 2"]
+      result = ["Windows Mozilla: 1", "Macintosh Chrome: 1"]
       assert_equal result, Url.first.three_most_popular_user_agents
     end
 
     def test_list_of_urls_listed_form_most_requested_to_least_requested
       create_data
-      result = ["google.com/search1", "google.com/search2", "google.com/search3"]
+      result = ["jumpstartlab.com/blog", "jumpstartlab.com/home", "jumpstartlab.com/exam"]
       assert_equal result, PayloadRequest.list_of_urls
     end
 

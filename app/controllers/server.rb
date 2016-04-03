@@ -31,20 +31,28 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
-      client = Client.find_by(:identifier => params["identifier"])
-      payload = create_payload(params["payload"], params["identifier"])
-      if client.nil?
-        status 403
-        body "Application Not Registered"
-      elsif payload.persisted?
-        status 403
-        body "Already Received Request"
-      elsif payload.valid? && payload.save
-        status 200
-        body "It's all good"
-      elsif payload.nil?
+      if params.nil?
         status 400
         body "#{client.errors.full_messages.join(", ")}"
+      else
+        client = Client.find_by(:identifier => params["identifier"])
+        payload = create_payload(params)
+        if client.nil?
+          status 403
+          body "Application Not Registered"
+        elsif payload.nil?
+          status 400
+          body "#{client.errors.full_messages.join(", ")}"
+        elsif payload.save
+          status 200
+          body "It's all good"
+        elsif payload.persisted?
+          status 403
+          body "Already Received Request"
+        else
+          status 420
+          body "Shit's fucked"
+        end
       end
     end
 

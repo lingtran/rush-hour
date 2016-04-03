@@ -43,7 +43,7 @@ module PayloadCreator
       :user_agent_id => create_user_agent(new_user_agent.platform, new_user_agent.browser).id,
       :resolution_id => create_resolution(params[:resolutionWidth], params[:resolutionHeight]).id,
       :ip_id => create_ip(params[:ip]).id,
-      :client_id => RushHour::Client.find_by(:identifier => params_identifier) == nil ? nil : RushHour::Client.find_by(:identifier => params_identifier).id
+      :client_id => RushHour::Client.find_by(:identifier => params_payload["identifier"]) == nil ? nil : RushHour::Client.find_by(:identifier => params_payload["identifier"]).id
       })
     payload
   end
