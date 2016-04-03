@@ -1,0 +1,46 @@
+<h1> <%= client.identifier %> Statistics </h1>
+
+<p>
+  Average Response Time Across All Requests:
+</p>
+<%= client.payload_requests.average_response_time %>
+
+<p>
+  Max Response Time Across All Requests:
+</p>
+<%= client.payload_requests.max_response_time %>
+
+<p>
+  Minimum Response Time Across All Requests:
+</p>
+<%= client.payload_requests.min_response_time %>
+
+<p>
+  Most Frequent Request Type:
+</p>
+<%= client.request_types.most_frequent_request_type %>
+
+<p>
+  List of All HTTP Verbs Used:
+</p>
+ <%= client.request_types.all_http_verbs %>
+
+<p>
+  List of URLs - Most to Least Requested:
+</p>
+<%= client.payload_requests.list_of_urls_ranked %>
+
+<p>
+  Web Browser Breakdown Across All Requests:
+</p>
+<%= client.payload_requests.web_browser_breakdown %>
+
+<p>
+  OS Breakdown Across All Requests:
+</p>
+<%= client.payload_requests.os_breakdown %>
+
+<p>
+  Screen Resolutions Across All Requests (resolutionWidth x resolutionHeight):
+</p>
+<%= client.payload_requests.resolution_breakdown %>
