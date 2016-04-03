@@ -34,7 +34,6 @@ module RushHour
     end
 
     def test_client_payload_request_has_already_been_received
-      skip
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
 
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
@@ -42,7 +41,7 @@ module RushHour
       assert_equal 1, Client.count
       assert_equal 1, PayloadRequest.count
 
-      post '/sources/jumpstartlab/data', { payload: params_two["payload"], identifier: params_two["identifier"] }
+      post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
       assert_equal 403, last_response.status
       assert_equal "Already Received Request", last_response.body
       assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
@@ -51,7 +50,8 @@ module RushHour
 
     def test_missing_payload_can_be_detected
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
-      post '/sources/jumpstartlab/data', { payload: params_missing["payload"], identifier: params_missing["identifier"] }
+      post '/sources/jumpstartlab/data', {payload: nil}
+      # { payload: params_missing["payload"], identifier: params_missing["identifier"] }
       assert_equal 400, last_response.status
       assert_equal "Missing Payload", last_response.body
       # If the payload is missing, return status 400 Bad Request with a descriptive error message.
