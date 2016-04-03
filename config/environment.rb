@@ -22,5 +22,6 @@ module RushHour
     set :root, APP_ROOT.to_path
     set :views, File.join(RushHour::Server.root, "app", "views")
     set :public_folder, File.join(RushHour::Server.root, "app", "public")
+    set :show_exceptions, :after_handler
   end
 end

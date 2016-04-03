@@ -107,7 +107,7 @@ module RushHour
 
     def test_list_of_urls_listed_form_most_requested_to_least_requested
       create_data
-      result = ["jumpstartlab.com/home", "jumpstartlab.com/exam", "jumpstartlab.com/blog"]
+      result = ["jumpstartlab.com/exam", "jumpstartlab.com/home", "jumpstartlab.com/blog"]
       assert_equal result, PayloadRequest.list_of_urls_ranked
     end
 

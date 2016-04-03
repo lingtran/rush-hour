@@ -27,7 +27,6 @@ module RushHour
 
 
     def test_can_get_average_response_time_for_all_requests
-      # skip
       create_data
       client_one_avg_response_t = @client1.payload_requests.average_response_time
       client_two_avg_response_t = @client2.payload_requests.average_response_time
@@ -36,8 +35,6 @@ module RushHour
     end
 
     def test_can_get_max_response_time_across_all_requests
-      # Max Response time across all requests
-      # skip
       create_data
       client_one_max_response_t = @client1.payload_requests.max_response_time
       client_two_max_response_t = @client2.payload_requests.max_response_time
@@ -46,8 +43,6 @@ module RushHour
     end
 
     def test_can_get_min_response_time_across_all_requests
-      # Min Response time across all requests
-      # skip
       create_data
       client_one_min_response_t = @client1.payload_requests.min_response_time
       client_two_min_response_t = @client2.payload_requests.min_response_time
@@ -56,7 +51,6 @@ module RushHour
     end
 
     def test_can_get_most_frequent_request_type
-      # Most frequent request type
       create_data
       client_one_freq_request_type = @client1.request_types.most_frequent_request_type
       client_two_freq_request_type = @client2.request_types.most_frequent_request_type
@@ -65,8 +59,6 @@ module RushHour
     end
 
     def test_can_get_list_of_all_HTTP_verbs_used
-      # List of all HTTP verbs used
-      # skip
       create_data
       client_one_all_http_verbs = @client1.request_types.all_http_verbs
       client_two_all_http_verbs = @client2.request_types.all_http_verbs
@@ -75,8 +67,6 @@ module RushHour
     end
 
     def test_can_get_list_of_urls_listed_from_most_requested_to_least_requested
-      # List of URLs listed form most requested to least requested
-      # skip
       create_data
       client_one_list_of_urls = @client1.payload_requests.list_of_urls_ranked
       client_two_list_of_urls = @client2.payload_requests.list_of_urls_ranked
@@ -88,8 +78,6 @@ module RushHour
     end
 
     def test_can_get_web_browser_breakdown_across_all_requests
-      # Web browser breakdown across all requests
-      # skip
       create_data
       client_one_web_browser_breakdown = @client1.payload_requests.web_browser_breakdown
       client_two_web_browser_breakdown = @client2.payload_requests.web_browser_breakdown
@@ -98,8 +86,6 @@ module RushHour
     end
 
     def test_can_get_os_breakdown_across_all_requests
-      # OS breakdown across all requests
-      # skip
       create_data
       client_one_os_breakdown = @client1.payload_requests.os_breakdown
       client_two_os_breakdown = @client2.payload_requests.os_breakdown
@@ -109,8 +95,6 @@ module RushHour
     end
 
     def test_can_get_screen_resolutions_acrosss_all_requests
-      # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
-      # skip
       create_data
       client_one_res_breakdown = @client1.payload_requests.resolution_breakdown
       client_two_res_breakdown = @client2.payload_requests.resolution_breakdown

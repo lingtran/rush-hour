@@ -53,12 +53,23 @@ module RushHour
           status 420
           body "Shit's fucked up."
         end
+      end
+    end
 
+    get '/sources/:identifier' do |id|
+      client = Client.find_by(:identifier => id)
+      payload = PayloadRequest.find_by(:client_id => client.id)
+      if !client.nil?
+        erb :client, :locals => {:client => client, :identifier => id}
+      elsif payload.nil?
+        erb :payload_missing_error
+      else
+        erb :client_error
       end
     end
 
     not_found do
-      erb :error
+        erb :error
     end
 
   end

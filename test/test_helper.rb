@@ -159,6 +159,10 @@ module RushHour
           client_id: @client2.id
       }
 
+      payload9 = {
+
+      }
+      
       @payload_request1 = PayloadRequest.create(payload1)
       @payload_request2 = PayloadRequest.create(payload2)
       @payload_request3 = PayloadRequest.create(payload3)
@@ -167,7 +171,7 @@ module RushHour
       @payload_request6 = PayloadRequest.create(payload6)
       @payload_request7 = PayloadRequest.create(payload7)
       @payload_request8 = PayloadRequest.create(payload8)
-
+      @payload_request9 = PayloadRequest.create(payload9)
     end
 
     def params
