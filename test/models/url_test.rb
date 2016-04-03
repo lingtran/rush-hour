@@ -82,11 +82,12 @@ module RushHour
       assert_equal result, Url.first.three_most_popular_user_agents
     end
 
-    def test_list_of_urls_listed_form_most_requested_to_least_requested
-      create_data
-      result = ["google.com/search1", "google.com/search2", "google.com/search3"]
-      assert_equal result, PayloadRequest.list_of_urls
-    end
+    # def test_list_of_urls_listed_form_most_requested_to_least_requested
+    #   moved to payload_request_test model test file
+    #   create_data
+    #   result = ["google.com/search1", "google.com/search2", "google.com/search3"]
+    #   assert_equal result, PayloadRequest.list_of_urls
+    # end
 
   end
 end

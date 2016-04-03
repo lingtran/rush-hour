@@ -5,8 +5,8 @@ module RushHour
     include PayloadCreator
 
     get '/' do
-      # erb :home, :layout => :home
-      erb :dashboard
+      erb :home, :layout => :home
+      # erb :dashboard
     end
 
     post '/sources' do
@@ -36,15 +36,18 @@ module RushHour
       if client.nil?
         status 403
         body "Application Not Registered"
+        erb :client_error
       elsif payload.persisted?
         status 403
         body "Already Received Request"
+        erb :payload_already_received
       elsif payload.valid? && payload.save
         status 200
         body "It's all good"
       elsif payload.nil?
         status 400
         body "#{client.errors.full_messages.join(", ")}"
+        erb :error
       end
     end
 
