@@ -5,7 +5,7 @@ module RushHour
 
 
     validates :root, presence: true, uniqueness: { scope: :path}
-    validates :path, presence: true
+
 
 
   end
