@@ -18,7 +18,6 @@ module RushHour
 
     def test_most_frequent_request_type
       create_data
-
       assert_equal "POST", RequestType.most_frequent_request_type
     end
 

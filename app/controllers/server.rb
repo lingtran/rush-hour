@@ -49,22 +49,22 @@ module RushHour
         elsif payload.save
           status 200
           body "It's all good"
+          redirect '/sources/#{identifier}'
         else
-          status 420
-          body "Shit's fucked up."
+          status 418
+          body "I'm a little teapot"
         end
       end
     end
 
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)
-      payload = PayloadRequest.find_by(:client_id => client.id)
-      if !client.nil?
-        erb :client, :locals => {:client => client, :identifier => id}
-      elsif payload.nil?
-        erb :payload_missing_error
-      else
+      if client.nil?
         erb :client_error
+      elsif client.payload_requests.nil?
+        erb :payload_missing_error
+      elsif client
+        erb :client, :locals => {:client => client, :identifier => id}
       end
     end
 
