@@ -1,51 +1,181 @@
-<h1> <%= client.identifier %> </h1>
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">
+      Dashboard for <%= client.identifier.capitalize %>
+    </h1>
+  </div>
+</div>
 
 <h2>Statistics</h2>
-<p>
-  Average Response Time Across All Requests:
-</p>
-<%= client.payload_requests.average_response_time %>
-
-<p>
-  Max Response Time Across All Requests:
-</p>
-<%= client.payload_requests.max_response_time %>
-
-<p>
-  Minimum Response Time Across All Requests:
-</p>
-<%= client.payload_requests.min_response_time %>
-
-<p>
-  Most Frequent Request Type:
-</p>
-<%= client.request_types.most_frequent_request_type %>
-
-<p>
-  List of All HTTP Verbs Used:
-</p>
- <%= client.request_types.all_http_verbs %>
-
-<p>
-  List of URLs - Most to Least Requested:
-</p>
-<%= client.payload_requests.list_of_urls_ranked %>
-
-<p>
-  Web Browser Breakdown Across All Requests:
-</p>
-<%= client.payload_requests.web_browser_breakdown %>
-
-<p>
-  OS Breakdown Across All Requests:
-</p>
-<%= client.payload_requests.os_breakdown %>
-
-<p>
-  Screen Resolutions Across All Requests (resolutionWidth x resolutionHeight):
-</p>
-<%= client.payload_requests.resolution_breakdown %>
-
+<!--/.row-->
+<!-- start of statistics -->
+<div class="row">
+	<div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-blue panel-widget ">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="large">
+            <%= client.payload_requests.average_response_time %>
+          </div>
+          <div class="text-muted">
+            Average Response Time
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-blue panel-widget ">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="large">
+            <%= client.payload_requests.max_response_time %>
+          </div>
+          <div class="text-muted">
+            Max Response Time
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-blue panel-widget ">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="large">
+            <%= client.payload_requests.min_response_time %>
+          </div>
+          <div class="text-muted">
+            Min Response Time
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-teal panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked male-user"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="small">
+            <%= client.payload_requests.list_of_urls_ranked.join(", ") %>
+          </div>
+					<div class="text-muted">
+            URLS Ordered By Requests
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- row 2 -->
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-red panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="medium">
+            <%= client.payload_requests.web_browser_breakdown.join(", ") %>
+          </div>
+					<div class="text-muted">
+            Web Browsers Used
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-red panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="medium">
+            <%= client.payload_requests.os_breakdown.join(", ") %>
+          </div>
+					<div class="text-muted">
+            Operating Systems Used
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-red panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked empty-message"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="medium">
+            <%= client.payload_requests.resolution_breakdown.join("<br />") %>
+          </div>
+					<div class="text-muted">
+            Resolutions Used
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+  </div>
+</div>
+<!-- row 3 -->
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-orange panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="large">
+            <%= client.request_types.most_frequent_request_type %>
+          </div>
+					<div class="text-muted">
+            Most Frequent Request Type
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="panel panel-orange panel-widget">
+			<div class="row no-padding">
+				<div class="col-sm-3 col-lg-5 widget-left">
+					<svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+				</div>
+				<div class="col-sm-9 col-lg-7 widget-right">
+					<div class="large">
+            <%= client.request_types.all_http_verbs.join(", ") %>
+          </div>
+					<div class="text-muted">
+            All Verbs Used
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+  </div>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+  </div>
+</div>
 
 <h2>Urls</h2>
 <ol>
