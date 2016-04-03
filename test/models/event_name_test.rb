@@ -3,7 +3,7 @@ require_relative '../test_helper'
 module RushHour
   class EventNameTest < Minitest::Test
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_event_name_class_can_be_created_and_not_duplicated
       assert EventName.create({:event_name => "Login"})

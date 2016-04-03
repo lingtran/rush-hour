@@ -4,7 +4,7 @@ module RushHour
   class PayloadRequestTest < Minitest::Test
 
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_payload_request_class_can_be_created
       create_data

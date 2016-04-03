@@ -3,7 +3,7 @@ require_relative '../test_helper'
 module RushHour
   class RequestTypeTest < Minitest::Test
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_request_type_class_can_be_created_but_not_duplicated_or_blank
       assert RequestType.create({:verb => "Get"})
