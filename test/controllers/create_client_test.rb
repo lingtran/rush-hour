@@ -4,7 +4,7 @@ module RushHour
   class CreateClientTest < Minitest::Test
     include Rack::Test::Methods
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def app
       RushHour::Server

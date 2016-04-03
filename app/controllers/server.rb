@@ -1,8 +1,10 @@
 require_relative "../models/payload_creator"
+require_relative "../models/attribute_creator"
+
 module RushHour
 
   class Server < Sinatra::Base
-    include PayloadCreator
+    include AttributeCreator
 
     get '/' do
       erb :home, :layout => :home
@@ -31,31 +33,38 @@ module RushHour
       # status(process_payload.status_code)
       # body(process_payload.body_content)
       # what to do about the rootUrl?
-      if params.nil?
-        status 400
-        body "Shit's missing!"
-      else
-        client = Client.find_by(:identifier => params["identifier"])
-        payload = create_payload(params)
-        if client.nil?
-          status 403
-          body "Application Not Registered"
-        elsif payload.nil?
-          status 400
-          body "Missing Payload"
-        elsif !payload.save
-          status 403
-          body "Already Received Request"
-        elsif payload.save
-          status 200
-          body "It's all good"
-          redirect '/sources/#{identifier}'
-        else
-          status 418
-          body "I'm a little teapot"
-        end
-      end
+      payload = PayloadCreator.new(params)
+      status payload.status_code
+      body payload.message
     end
+
+
+
+    #   if params.nil?
+    #     status 400
+    #     body "Shit's missing!"
+    #   else
+    #     client = Client.find_by(:identifier => params["identifier"])
+    #     payload = create_payload(params)
+    #     if client.nil?
+    #       status 403
+    #       body "Application Not Registered"
+    #     elsif payload.nil?
+    #       status 400
+    #       body "Missing Payload"
+    #     elsif !payload.save
+    #       status 403
+    #       body "Already Received Request"
+    #     elsif payload.save
+    #       status 200
+    #       body "It's all good"
+    #       redirect '/sources/#{identifier}'
+    #     else
+    #       status 418
+    #       body "I'm a little teapot"
+    #     end
+    #   end
+    # end
 
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)

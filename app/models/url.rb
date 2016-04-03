@@ -6,7 +6,7 @@ module RushHour
     has_many :referred_bies, through: :payload_requests
     has_many :user_agents, through: :payload_requests
     validates :root, presence: true, uniqueness: {scope: :path}
-    validates :path, presence: true
+
 
 
     def all_response_times_for_url_ordered
