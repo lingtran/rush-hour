@@ -86,7 +86,7 @@ module RushHour
 
     def test_average_response_time_for_our_clients_app_across_all_requests
       create_data
-      assert_equal 62.25, PayloadRequest.average_response_time.to_f.round(2)
+      assert_equal 62.25, PayloadRequest.average_response_time
     end
 
     def test_max_response_time_across_all_requests

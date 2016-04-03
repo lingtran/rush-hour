@@ -1,0 +1,36 @@
+<h1> <%= url.path %> </h1>
+
+<p>
+  Max Response Time:
+</p>
+<%= url.payload_requests.max_response_time %>
+
+<p>
+  Min Response Time:
+</p>
+<%= url.payload_requests.min_response_time %>
+
+<p>
+  Response Times Across All Requests (longest to shortest):
+</p>
+<%= url.all_response_times_for_url_ordered %>
+
+<p>
+  Average Response Time for URL:
+</p>
+<%= url.payload_requests.average_response_time %>
+
+<p>
+  HTTP Verbs Associated with URL:
+</p>
+<%= url.http_verbs_for_url %>
+
+<p>
+  Three Most Popular Referrers:
+</p>
+<%= url.three_most_popular_referrers %>
+
+<p>
+  Three Most Popular User Agents:
+</p>
+<%=url.three_most_popular_user_agents  %>

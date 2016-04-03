@@ -54,7 +54,7 @@ module RushHour
 
     def test_can_create_payload
       Client.create({identifier: "jumpstartlab", rootUrl: "http://jumpstartlab.com"})
-      pc = PayloadCreator.new(params)
+       PayloadCreator.new(params)
 
       assert_equal 1, PayloadRequest.last.url_id
       assert PayloadRequest.last.requested_at.is_a?(Date)

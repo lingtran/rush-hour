@@ -24,7 +24,7 @@ module RushHour
     def three_most_popular_referrers
       referrers_by_count = referred_bies.group(:root, :path).count
       ranked = referrers_by_count.max_by(3) { |k,v| v }
-      ranked.map { |referrer| "#{referrer.first.join}: #{referrer.last}"}
+      ranked.map { |referrer| "#{referrer.first.join("/")}: #{referrer.last}"}
     end
 
     def three_most_popular_user_agents
