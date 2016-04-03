@@ -3,7 +3,7 @@ require_relative '../test_helper'
 module RushHour
   class ReferredByTest < Minitest::Test
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_referred_by_class_can_be_created_but_not_duplicated_or_blank
       assert ReferredBy.create({:root => "www.google.com", :path => "/gmail"})

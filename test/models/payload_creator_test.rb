@@ -1,10 +1,10 @@
 require_relative '../test_helper'
 require 'pry'
 module RushHour
-  class PayloadCreatorTest < Minitest::Test
+  class AttributeCreatorTest < Minitest::Test
     include Rack::Test::Methods
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def app
       RushHour::Server

@@ -3,7 +3,7 @@ require_relative '../test_helper'
 module RushHour
   class ClientTest < Minitest::Test
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_client_class_can_be_created
 

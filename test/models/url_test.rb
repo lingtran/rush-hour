@@ -3,7 +3,7 @@ require_relative '../test_helper'
 module RushHour
   class UrlTest < Minitest::Test
     include TestHelpers
-    include PayloadCreator
+    include AttributeCreator
 
     def test_url_class_can_be_created
       assert Url.create({:root => "google.com", :path => "search"})
