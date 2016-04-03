@@ -17,7 +17,7 @@ module RushHour
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"]}
 
       assert_equal 403, last_response.status
-      assert_equal "Application Not Registered", last_response.body
+      assert_equal "Client jumpstartlab does not exist.", last_response.body
       assert_equal 0, Client.count
     end
 
@@ -43,17 +43,17 @@ module RushHour
 
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
       assert_equal 403, last_response.status
-      assert_equal "Already Received Request", last_response.body
+      assert_equal "Jumpstartlab: this request already exists.", last_response.body
       assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
 # If the request payload has already been received return status 403 Forbidden with a descriptive error message.
     end
 
     def test_missing_payload_can_be_detected
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
-      post '/sources/jumpstartlab/data', {payload: nil}
+      post '/sources/jumpstartlab/data', params_missing
       # { payload: params_missing["payload"], identifier: params_missing["identifier"] }
       assert_equal 400, last_response.status
-      assert_equal "Missing Payload", last_response.body
+      assert_equal "Url can't be blank", last_response.body
       # If the payload is missing, return status 400 Bad Request with a descriptive error message.
     end
   end

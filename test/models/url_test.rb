@@ -59,7 +59,7 @@ module RushHour
 
     def test_all_http_verbs_by_url
       create_data
-      assert_equal ["GET", "POST"], Url.find(3).http_verbs_for_url
+      assert_equal ["POST", "GET"], Url.find(3).http_verbs_for_url
       assert_equal ["POST"], Url.find(2).http_verbs_for_url
     end
 

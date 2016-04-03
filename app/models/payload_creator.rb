@@ -13,8 +13,8 @@ module RushHour
 
 
     def create_payload(params)
-      client = Client.find_by(identifier: params[:identifier])
-      return missing_client(params) unless client
+      client = Client.find_by(identifier: params["identifier"])
+      return missing_client(params["identifier"]) unless client
 
       raw_payload = JSON.parse(params["payload"])
       payload = make_payload(raw_payload, client)
@@ -44,9 +44,11 @@ module RushHour
       if PayloadRequest.exists?(digest: payload["digest"])
         [403, "#{client.identifier.capitalize}: this request already exists."]
       elsif request.save
-        [200, "Success"]
+        [200, "It's all good"]
       elsif payload.values.include?(nil)
         [400, request.errors.full_messages.join("")]
+      else
+        [420, "Shit's broke!"]
       end
     end
 
@@ -88,7 +90,7 @@ module RushHour
     end
 
     def missing_client(params)
-      [403, "Client #{params[:client]} does not exist."]
+      [403, "Client #{params} does not exist."]
     end
 
   end
