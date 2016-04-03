@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 20160402193121) do
     t.integer  "responded_in"
   end
 
+  create_table "payloads", force: :cascade do |t|
+    t.string   "requested_at"
+    t.integer  "response_time"
+    t.text     "parameters",          default: [],              array: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "user_environment_id"
+  end
+
+  add_index "payloads", ["user_environment_id"], name: "index_payloads_on_user_environment_id", using: :btree
+
   create_table "referred_bies", force: :cascade do |t|
     t.text     "root"
     t.text     "path"
@@ -84,4 +95,12 @@ ActiveRecord::Schema.define(version: 20160402193121) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_environments", force: :cascade do |t|
+    t.string   "browser"
+    t.string   "os"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "payloads", "user_environments"
 end
