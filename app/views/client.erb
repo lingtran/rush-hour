@@ -1,5 +1,6 @@
-<h1> <%= client.identifier %> Statistics </h1>
+<h1> <%= client.identifier %> </h1>
 
+<h2>Statistics</h2>
 <p>
   Average Response Time Across All Requests:
 </p>
@@ -44,3 +45,11 @@
   Screen Resolutions Across All Requests (resolutionWidth x resolutionHeight):
 </p>
 <%= client.payload_requests.resolution_breakdown %>
+
+
+<h2>Urls</h2>
+<ol>
+  <% urls.each do |url| %>
+  <li><a href="/sources/<%=identifier%>/urls/<%=url[1]%>"> <%= url.join("/") %> </a></li>
+  <% end %>
+</ol>
