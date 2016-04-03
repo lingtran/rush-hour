@@ -16,7 +16,17 @@ module RushHour
 
       click_link("http://jumpstartlab.com/blog")
       assert '/sources/jumpstartlab/urls/blog', current_path
-      assert_equal
+      assert_equal '/sources/jumpstartlab/urls/blog', current_path
+      assert page.has_content?("Max Response Time")
     end
   end
 end
+
+
+Max Response time
+Min Response time
+A list of response times across all requests listed from longest response time to shortest response time.
+Average Response time for this URL
+HTTP Verb(s) associated used to it this URL
+Three most popular referrers
+Three most popular user agents

@@ -68,6 +68,11 @@ module RushHour
       end
     end
 
+    get '/sources/:identifier/urls/:relativepath' do |id, relativepath|
+      client = Client.find_by(:identifier => id)
+      erb :client_url, :locals => { :client => client, :identifier => id, :relativepath => relativepath }
+    end
+
     not_found do
         erb :error
     end
