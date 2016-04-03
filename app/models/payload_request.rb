@@ -33,7 +33,7 @@ module RushHour
                                                :ip_id]
 
     def self.average_response_time
-      average(:responded_in)
+      average(:responded_in).to_f.round(2)
       # test
     end
 
@@ -52,6 +52,10 @@ module RushHour
       joins(:url).pluck(:root, :path).map { |url| url.join("/") }.uniq
     end
 
+    def self.list_of_url_paths
+      joins(:url).pluck(:path).uniq
+    end
+    
     def self.list_of_urls_ranked
       joins(:url).group(:root, :path).order("count_all desc").count.map{ |k, v| k.join("/")}
     end

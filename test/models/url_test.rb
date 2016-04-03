@@ -48,25 +48,25 @@ module RushHour
     def test_average_response_time_by_url
       create_data
 
-      assert_equal 62.33, Url.last.payload_requests.average_response_time.to_f.round(2)
+      assert_equal 62.33, Url.last.payload_requests.average_response_time
     end
 
     def test_all_response_times_for_url_are_ordered
       create_data
-
       assert_equal [65, 61, 61], Url.last.all_response_times_for_url_ordered
     end
 
     def test_all_http_verbs_by_url
       create_data
-      assert_equal ["GET", "POST"], Url.find(3).http_verbs_for_url
+      assert Url.find(3).http_verbs_for_url.include?("GET")
+      assert Url.find(3).http_verbs_for_url.include?("POST")
       assert_equal ["POST"], Url.find(2).http_verbs_for_url
     end
 
     def test_three_most_popular_referrers
       create_data
 
-      result = ["jumpstartlab.compath1: 1", "jumpstartlab.compath2: 1"]
+      result = ["jumpstartlab.com/path1: 1", "jumpstartlab.com/path2: 1"]
       assert_equal result, Url.first.three_most_popular_referrers
     end
 

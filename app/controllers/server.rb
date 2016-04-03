@@ -1,4 +1,5 @@
 require_relative "../models/payload_creator"
+
 module RushHour
 
   class Server < Sinatra::Base
@@ -59,18 +60,20 @@ module RushHour
 
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)
+      urls = client.urls.pluck(:root, :path).uniq
       if client.nil?
         erb :client_error
       elsif client.payload_requests.nil?
         erb :payload_missing_error
       elsif client
-        erb :client, :locals => {:client => client, :identifier => id}
+        erb :client, :locals => {:client => client, :identifier => id, :urls => urls }
       end
     end
 
-    get '/sources/:identifier/urls/:relativepath' do |id, relativepath|
+    get '/sources/:identifier/urls/:relativepath' do |id, relpath|
       client = Client.find_by(:identifier => id)
-      erb :client_url, :locals => { :client => client, :identifier => id, :relativepath => relativepath }
+      url = client.urls.find_by(:path => relpath)
+      erb :client_url, :locals => { :client => client, :identifier => id, :relativepath => relpath, :url => url }
     end
 
     not_found do

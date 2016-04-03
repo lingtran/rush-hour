@@ -48,4 +48,8 @@
 
 
 <h2>Urls</h2>
-<a href="/sources/:identifier/urls/:relativepath">"http://jumpstartlab.com/blog"</a>
+<ol>
+  <% urls.each do |url| %>
+  <li><a href="/sources/<%=identifier%>/urls/<%=url[1]%>"> <%= url.join("/") %> </a></li>
+  <% end %>
+</ol>
