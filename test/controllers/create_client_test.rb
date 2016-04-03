@@ -38,5 +38,6 @@ module RushHour
       assert_equal "Forbidden!", last_response.body
       assert_equal 403, last_response.status
     end
+
   end
 end
