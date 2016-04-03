@@ -7,7 +7,7 @@ module RushHour
 
     def self.most_frequent_request_type
       request_frequency = joins(:payload_requests).group(:verb).order("count_all desc").count
-      request_frequency.max_by { |k,v,| v }.first
+      result = request_frequency.max_by { |k,v,| v }.first
     end
 
     def self.all_http_verbs
