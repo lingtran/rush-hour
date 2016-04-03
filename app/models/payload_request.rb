@@ -47,9 +47,13 @@ module RushHour
       # test
     end
 
-    def self.list_of_urls
+    def self.list_of_urls_unique
       # test is in url_test and not in payload_request_one => move this method or move the test? or neither?
       joins(:url).pluck(:root, :path).map { |url| url.join("/") }.uniq
+    end
+
+    def self.list_of_urls_ranked
+      joins(:url).group(:root, :path).order("count_all desc").count.map{ |k, v| k.join("/")}
     end
 
     def self.web_browser_breakdown

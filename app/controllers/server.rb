@@ -5,8 +5,8 @@ module RushHour
     include PayloadCreator
 
     get '/' do
-      # erb :home, :layout => :home
-      erb :dashboard
+      erb :home, :layout => :home
+      # erb :dashboard
     end
 
     post '/sources' do
@@ -53,6 +53,7 @@ module RushHour
           status 420
           body "Shit's fucked"
         end
+
       end
     end
 

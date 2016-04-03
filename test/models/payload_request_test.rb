@@ -99,6 +99,18 @@ module RushHour
       assert_equal 60, PayloadRequest.min_response_time
     end
 
+    def test_list_of_urls
+      create_data
+      result = ["jumpstartlab.com/blog", "jumpstartlab.com/home", "jumpstartlab.com/exam"]
+      assert_equal result, PayloadRequest.list_of_urls_unique
+    end
+
+    def test_list_of_urls_listed_form_most_requested_to_least_requested
+      create_data
+      result = ["jumpstartlab.com/home", "jumpstartlab.com/exam", "jumpstartlab.com/blog"]
+      assert_equal result, PayloadRequest.list_of_urls_ranked
+    end
+
     def test_web_browser_breakdown_across_all_requests
       create_data
       assert_equal ["Chrome", "Safari", "Mozilla"], PayloadRequest.web_browser_breakdown
