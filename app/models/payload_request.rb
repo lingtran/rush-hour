@@ -44,7 +44,14 @@ module RushHour
 
     def self.min_response_time
       minimum(:responded_in)
-      # test
+    end
+
+    def self.requests_by_hour
+      self.map { |pr| pr.requested_at.hour }
+    end
+
+    def self.count_requests
+      self.count
     end
 
     def self.list_of_urls_unique
@@ -55,7 +62,7 @@ module RushHour
     def self.list_of_url_paths
       joins(:url).pluck(:path).uniq
     end
-    
+
     def self.list_of_urls_ranked
       joins(:url).group(:root, :path).order("count_all desc").count.map{ |k, v| k.join("/")}
     end
