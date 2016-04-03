@@ -946,3 +946,15 @@ h1.page-header {
 		font-weight: 700;
 
 }
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 5em;
+		color: white;
+		font-weight: 700
+}
+.intro-message > h3 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+		color: #eee;
+}

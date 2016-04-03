@@ -61,7 +61,7 @@ module RushHour
       client = Client.find_by(:identifier => id)
       if client.nil?
         erb :client_error
-      elsif client.payload_requests.nil?
+      elsif client.payload_requests.empty?
         erb :payload_missing_error
       elsif client
         erb :client, :locals => {:client => client, :identifier => id}
