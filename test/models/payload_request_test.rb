@@ -41,7 +41,7 @@ module RushHour
       payload_request = PayloadRequest.last
       assert_respond_to payload_request, :referred_by
       assert_equal "jumpstartlab.com", payload_request.referred_by.root
-      assert_equal "path3", payload_request.referred_by.path
+      assert_equal "path2", payload_request.referred_by.path
 
     end
 
@@ -86,17 +86,17 @@ module RushHour
 
     def test_average_response_time_for_our_clients_app_across_all_requests
       create_data
-      assert_equal 1.5, PayloadRequest.average_response_time
+      assert_equal 62.25, PayloadRequest.average_response_time.to_f.round(2)
     end
 
     def test_max_response_time_across_all_requests
       create_data
-      assert_equal 2, PayloadRequest.max_response_time
+      assert_equal 65, PayloadRequest.max_response_time
     end
 
     def test_min_response_time_across_all_requests
       create_data
-      assert_equal 1, PayloadRequest.min_response_time
+      assert_equal 60, PayloadRequest.min_response_time
     end
 
     def test_list_of_urls
@@ -123,17 +123,25 @@ module RushHour
 
     def test_screen_resolutions_across_all_requests
       create_data
-      result = ["resolutionWidth 1 x resolutionHeight 1", "resolutionWidth 2 x resolutionHeight 2"]
+      result = ["1920 x 1280", "800 x 640"]
       assert_equal result, PayloadRequest.resolution_breakdown
     end
 
     def test_can_validate_uniqueness_of_payload_request
       create_data
-      payload_one = PayloadRequest.first
-      payload_two = PayloadRequest.last
-      payload_one.valid?
-      payload_two.valid?
-      assert_nil payload_two.errors.on(:client_id)
+      payload1 = {
+          url_id: @url1.id,
+          requested_at: "2015-04-01 12:30:40 -700",
+          responded_in: 60,
+          referred_by_id: @referral1.id,
+          request_type_id: @request_type2.id,
+          event_name_id: @event1.id,
+          user_agent_id: @agent1.id,
+          resolution_id: @resolution1.id,
+          ip_id: @ip1.id,
+          client_id: @client1.id
+      }
+      refute PayloadRequest.new(payload1).save
     end
 
   end
