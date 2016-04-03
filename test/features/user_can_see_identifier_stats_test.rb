@@ -1,7 +1,7 @@
 require_relative '../test_helper.rb'
 
 module RushHour
-  class UserCan < Minitest::Test
+  class UserCanSeeIdentifierStatsTest < Minitest::Test
     include TestHelpers
     include Capybara::DSL
 
