@@ -37,14 +37,14 @@ module RushHour
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
 
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
-      assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
+      assert_equal 1, PayloadRequest.find_by(:responded_in => 37).id
       assert_equal 1, Client.count
       assert_equal 1, PayloadRequest.count
 
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"] }
       assert_equal 403, last_response.status
       assert_equal "Jumpstartlab: this request already exists.", last_response.body
-      assert_equal 1, PayloadRequest.find_by(:requested_at => Date.strptime("2013-02-16 21:38:28 -0700", "%F %H:%M:%S")).id
+      assert_equal 1, PayloadRequest.find_by(:responded_in => 37).id
 # If the request payload has already been received return status 403 Forbidden with a descriptive error message.
     end
 

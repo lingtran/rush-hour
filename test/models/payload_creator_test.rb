@@ -57,7 +57,7 @@ module RushHour
        PayloadCreator.new(params)
 
       assert_equal 1, PayloadRequest.last.url_id
-      assert PayloadRequest.last.requested_at.is_a?(Date)
+      assert PayloadRequest.last.requested_at.is_a?(Time)
       assert_equal 37, PayloadRequest.last.responded_in
       assert_equal 1, PayloadRequest.last.referred_by_id
       assert_equal 1, PayloadRequest.last.request_type_id

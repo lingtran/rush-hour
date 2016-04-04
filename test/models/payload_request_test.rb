@@ -11,7 +11,7 @@ module RushHour
       refute PayloadRequest.all.empty?
 
       payload_request = PayloadRequest.last
-      assert_equal Date.new(2015, 04, 01), payload_request.requested_at
+      assert_equal 19, payload_request.requested_at.hour
     end
 
     def test_payload_request_class_has_responded_in
@@ -131,7 +131,7 @@ module RushHour
       create_data
       payload1 = {
           url_id: @url1.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:20:40 -700",
           responded_in: 60,
           referred_by_id: @referral1.id,
           request_type_id: @request_type2.id,
@@ -142,6 +142,16 @@ module RushHour
           client_id: @client1.id
       }
       refute PayloadRequest.new(payload1).save
+    end
+
+    def test_can_get_events_by_hour
+      create_data
+      assert_equal [19, 19, 19, 19], EventName.first.payload_requests.map { |pr| pr.requested_at.hour }
+    end
+
+    def test_can_get_count_of_events_per_hour
+      create_data
+      assert_equal 4, EventName.first.payload_requests.count_requests
     end
 
   end
