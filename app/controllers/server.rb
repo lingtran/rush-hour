@@ -58,7 +58,7 @@ module RushHour
           hours = Hash.new(0)
           verified_event.payload_requests.map {|pr| pr.requested_at.hour }.reduce(0){ |sum, element| hours[element] += 1 }
           count_for_event = hours.values.reduce(:+)
-          erb :event, :locals => { :event_name => event, :hours => hours, :count_for_event => count_for_event }
+          erb :event, :locals => {:identifier => id, :event_name => event, :hours => hours, :count_for_event => count_for_event }
         else
           erb :event_error, :locals => { :identifier => id, :event_name => event }
         end
