@@ -78,7 +78,7 @@ module RushHour
     end
 
     not_found do
-      erb :error, :locals => { :identifier => id }
+      erb :error, :locals => { :identifier => "nil" }
     end
 
   end
