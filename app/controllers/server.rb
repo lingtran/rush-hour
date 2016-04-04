@@ -65,9 +65,10 @@ module RushHour
         if verified_event
           hours = Hash.new(0)
           verified_event.payload_requests.map {|pr| pr.requested_at.hour }.reduce(0){ |sum, element| hours[element] += 1 }
-          erb :event, :locals => { :event_name => event, :hours => hours }
+          count_for_event = hours.values.reduce(:+)
+          erb :event, :locals => { :event_name => event, :hours => hours, :count_for_event => count_for_event }
         else
-          redirect "/sources/#{id}/events"
+          erb :event_error, :locals => { :identifier => id, :event_name => event }
         end
       else
         erb :client_error
@@ -76,8 +77,8 @@ module RushHour
 
     get '/sources/:identifier/events' do |id|
       client = Client.find_by(:identifier => id)
-      events = client.event_names.pluck(:event_name)
-      erb :event_error, :locals => { :identifier => id, :event_name => events }
+      client_events = client.event_names.pluck(:event_name).uniq
+      erb :events_index, :locals => { :identifier => id, :client_events => client_events }
     end
 
     not_found do
