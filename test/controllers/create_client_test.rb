@@ -1,5 +1,5 @@
 require_relative '../test_helper'
-require 'pry'
+
 module RushHour
   class CreateClientTest < Minitest::Test
     include Rack::Test::Methods

@@ -107,8 +107,9 @@ module RushHour
 
     def test_list_of_urls_listed_form_most_requested_to_least_requested
       create_data
-      result = ["jumpstartlab.com/exam", "jumpstartlab.com/home", "jumpstartlab.com/blog"]
-      assert_equal result, PayloadRequest.list_of_urls_ranked
+      assert PayloadRequest.list_of_urls_ranked.include?("jumpstartlab.com/exam")
+      assert PayloadRequest.list_of_urls_ranked.include?("jumpstartlab.com/home")
+      assert PayloadRequest.list_of_urls_ranked.include?("jumpstartlab.com/blog")
     end
 
     def test_web_browser_breakdown_across_all_requests

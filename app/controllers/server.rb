@@ -39,34 +39,6 @@ module RushHour
       body payload.message
     end
 
-
-
-    #   if params.nil?
-    #     status 400
-    #     body "Shit's missing!"
-    #   else
-    #     client = Client.find_by(:identifier => params["identifier"])
-    #     payload = create_payload(params)
-    #     if client.nil?
-    #       status 403
-    #       body "Application Not Registered"
-    #     elsif payload.nil?
-    #       status 400
-    #       body "Missing Payload"
-    #     elsif !payload.save
-    #       status 403
-    #       body "Already Received Request"
-    #     elsif payload.save
-    #       status 200
-    #       body "It's all good"
-    #       redirect '/sources/#{identifier}'
-    #     else
-    #       status 418
-    #       body "I'm a little teapot"
-    #     end
-    #   end
-    # end
-
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)
       if client.nil?
@@ -87,19 +59,25 @@ module RushHour
 
     get '/sources/:identifier/events/:eventname' do |id, event|
       client = Client.find_by(:identifier => id)
-      verified_event = ?
 
-      if verified_event is undefined
-        erb :event_error, :locals => { :identifier => id, :event_name => event }
+      if client
+        verified_event = EventName.find_by(:event_name => event)
+        if verified_event
+          hours = Hash.new(0)
+          verified_event.payload_requests.map {|pr| pr.requested_at.hour }.reduce(0){ |sum, element| hours[element] += 1 }
+          erb :event, :locals => { :event_name => event, :hours => hours }
+        else
+          redirect "/sources/#{id}/events"
+        end
       else
-        # stats for events, pass in event
-        erb :event, :locals => { :event_name => event, stats pertaining to event }
+        erb :client_error
       end
     end
 
     get '/sources/:identifier/events' do |id|
-      list of events = ?
-      erb :events_index, :locals => { :identifier => id, list of events }
+      client = Client.find_by(:identifier => id)
+      events = client.event_names.pluck(:event_name)
+      erb :event_error, :locals => { :identifier => id, :event_name => events }
     end
 
     not_found do
