@@ -85,8 +85,25 @@ module RushHour
       erb :client_url, :locals => { :client => client, :identifier => id, :relativepath => relpath, :url => url }
     end
 
+    get '/sources/:identifier/events/:eventname' do |id, event|
+      client = Client.find_by(:identifier => id)
+      verified_event = ?
+
+      if verified_event is undefined
+        erb :event_error, :locals => { :identifier => id, :event_name => event }
+      else
+        # stats for events, pass in event
+        erb :event, :locals => { :event_name => event, stats pertaining to event }
+      end
+    end
+
+    get '/sources/:identifier/events' do |id|
+      list of events = ?
+      erb :events_index, :locals => { :identifier => id, list of events }
+    end
+
     not_found do
-        erb :error
+      erb :error
     end
 
   end
