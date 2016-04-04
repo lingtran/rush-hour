@@ -63,6 +63,10 @@ module RushHour
       joins(:url).pluck(:path).uniq
     end
 
+    def self.get_request_hours
+      self.map { |pr| pr.requested_at.hour }
+    end
+
     def self.list_of_urls_ranked
       joins(:url).group(:root, :path).order("count_all desc").count.map{ |k, v| k.join("/")}
     end
