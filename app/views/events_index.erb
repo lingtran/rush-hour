@@ -1,6 +1,7 @@
 <h1>Application Events Index</h1>
 
 <ul>
-  <% list of events.each do |event| %>
-  <li> <a href="/sources/<%= identifier %>/events/<%= event name %> "></a> <%= event  %> </li>
+  <% client_events.each do |event| %>
+  <li> <a href="/sources/<%=identifier%>/events/<%=event%>"><%=event%></a></li>
+  <% end %>
 </ul>

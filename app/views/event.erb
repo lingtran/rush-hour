@@ -4,10 +4,13 @@
 <p>
   Requests by hour
 </p>
-
-<%= stat %>
+<ul>
+  <% hours.each_pair do |hour, count|  %>
+  <li> Hour <%=hour%>: <%= count %> count(s) </li>
+  <% end %>
+</ul>
 
 <p>
-  Nmber of times event was received
+  Number of times event was received
 </p>
-<%= stat %>
+<%= count_for_event %>
