@@ -6,7 +6,6 @@ module RushHour
     include Capybara::DSL
 
     def test_user_can_see_statistics_for_url_specific_to_client
-      # skip
       create_data
       visit '/sources/jumpstartlab'
       assert_equal '/sources/jumpstartlab', current_path

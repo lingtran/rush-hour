@@ -6,10 +6,9 @@ module RushHour
     include Capybara::DSL
 
     def test_user_can_see_statistics_on_identifier_page
-      #  issues with these identifiers (nil class): turing, microsoft, yahoo, apple, palantir, facebook
       create_data
 
-      visit '/sources/jumpstartlab' #calling this path correctly?
+      visit '/sources/jumpstartlab'
       assert_equal '/sources/jumpstartlab', current_path
       assert page.has_content?("Average Response Time")
       assert page.has_content?(63.0)

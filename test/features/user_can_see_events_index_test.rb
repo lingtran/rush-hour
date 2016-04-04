@@ -6,7 +6,6 @@ module RushHour
     include Capybara::DSL
 
     def test_user_can_see_application_events_index_for_a_client_when_event_undefined
-      # skip
       create_data
       visit '/sources/jumpstartlab/events/startedRegistration'
       assert page.has_content?("Event Error")

@@ -21,23 +21,6 @@ module RushHour
       request = PayloadRequest.new(payload)
 
       get_response(request, payload, client)
-
-      # return if params_payload["payload"].nil?
-      # params = params_parser(params_payload)
-
-      # payload = RushHour::PayloadRequest.new({
-      #   :url_id       => create_url(new_url[:root], new_url[:path]).id,
-      #   :requested_at => Date.strptime(params[:requestedAt], "%F %H:%M:%S"),
-      #   :responded_in => params[:respondedIn],
-      #   :referred_by_id => create_referred_by(new_referred_by[:root], new_referred_by[:path]).id,
-      #   :request_type_id => create_request_type(params[:requestType]).id,
-      #   :event_name_id => create_event_name(params[:eventName]).id,
-      #   :user_agent_id => create_user_agent(new_user_agent.platform, new_user_agent.browser).id,
-      #   :resolution_id => create_resolution(params[:resolutionWidth], params[:resolutionHeight]).id,
-      #   :ip_id => create_ip(params[:ip]).id,
-      #   :client_id => RushHour::Client.find_by(:identifier => params_payload["identifier"]) == nil ? nil : RushHour::Client.find_by(:identifier => params_payload["identifier"]).id
-      #   })
-      # payload
     end
 
     def get_response(request, payload, client)

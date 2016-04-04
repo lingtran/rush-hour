@@ -9,7 +9,6 @@ module RushHour
 
     get '/' do
       erb :home, :layout => :home
-      # erb :dashboard
     end
 
     post '/sources' do
@@ -23,17 +22,10 @@ module RushHour
       else
         status 400
         body "#{client.errors.full_messages.join(", ")}"
-        # how do we access error messages for this case? is current one descriptive enough?
       end
     end
 
     post '/sources/:identifier/data' do |identifier|
-
-      # status_code, body_content = ProcessPayload.call(identifier, params)
-      # process_payload = ProcessPayload.call(identifier, params)
-      # status(process_payload.status_code)
-      # body(process_payload.body_content)
-      # what to do about the rootUrl?
       payload = PayloadCreator.new(params)
       status payload.status_code
       body payload.message

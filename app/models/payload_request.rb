@@ -34,12 +34,10 @@ module RushHour
 
     def self.average_response_time
       average(:responded_in).to_f.round(2)
-      # test
     end
 
     def self.max_response_time
       maximum(:responded_in)
-      # test
     end
 
     def self.min_response_time
@@ -55,7 +53,6 @@ module RushHour
     end
 
     def self.list_of_urls_unique
-      # test is in url_test and not in payload_request_one => move this method or move the test? or neither?
       joins(:url).pluck(:root, :path).map { |url| url.join("/") }.uniq
     end
 

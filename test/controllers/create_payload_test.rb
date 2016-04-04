@@ -22,12 +22,9 @@ module RushHour
 
     def test_payload_request_with_valid_attributes_and_uniqueness_can_be_created
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
-      # payload = create_payload(params["payload"], params["identifier"])
       assert_equal 1, Client.count
-      # assert payload.valid?
 
       post '/sources/jumpstartlab/data', { payload: params["payload"] }
-      # assert_equal 1, Client.count
       assert_equal 200, last_response.status
       assert_equal "It's all good", last_response.body
     end
@@ -44,16 +41,13 @@ module RushHour
       assert_equal 403, last_response.status
       assert_equal "Jumpstartlab: this request already exists.", last_response.body
       assert_equal 1, PayloadRequest.find_by(:responded_in => 37).id
-# If the request payload has already been received return status 403 Forbidden with a descriptive error message.
     end
 
     def test_missing_payload_can_be_detected
       Client.create(:identifier => params["identifier"], :rootUrl => params["rootUrl"])
       post '/sources/jumpstartlab/data', params_missing
-      # { payload: params_missing["payload"], identifier: params_missing["identifier"] }
       assert_equal 400, last_response.status
       assert_equal "Url can't be blank", last_response.body
-      # If the payload is missing, return status 400 Bad Request with a descriptive error message.
     end
   end
 end

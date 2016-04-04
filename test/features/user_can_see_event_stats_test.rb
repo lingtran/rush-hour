@@ -6,7 +6,6 @@ module RushHour
     include Capybara::DSL
 
     def test_user_can_see_event_stats
-      # skip
       create_data
 
       visit '/sources/jumpstartlab/events/event1'
