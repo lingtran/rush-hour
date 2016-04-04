@@ -13,9 +13,8 @@ module RushHour
       assert_equal '/sources/jumpstartlab/events/event1', current_path
 
       assert page.has_content?("Requests by hour")
-      assert page.has_content?("Hour 19")
-      assert page.has_content?("4 count(s)")
-      assert page.has_content?("Number of times event was received")
+      assert page.has_content?("Client Hourly Payload Statistics")
+      assert page.has_content?("Total number of times event was received:")
       assert page.has_content?("4")
 
     end
