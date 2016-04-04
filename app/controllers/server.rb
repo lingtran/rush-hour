@@ -69,12 +69,12 @@ module RushHour
 
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)
-      urls = client.urls.pluck(:root, :path).uniq
       if client.nil?
         erb :client_error
       elsif client.payload_requests.nil?
         erb :payload_missing_error
       elsif client
+        urls = client.urls.pluck(:root, :path).uniq
         erb :client, :locals => {:client => client, :identifier => id, :urls => urls }
       end
     end

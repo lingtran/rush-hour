@@ -1,6 +1,6 @@
 require_relative '../test_helper'
-require_relative '../../app/models/payload_creator'
-require 'pry'
+# require_relative '../../app/models/payload_creator'
+# require 'pry'
 
 module RushHour
   class CreatePayloadTest < Minitest::Test
@@ -15,7 +15,6 @@ module RushHour
     def test_client_cannot_be_found
       assert_equal 0, Client.count
       post '/sources/jumpstartlab/data', { payload: params["payload"], identifier: params["identifier"]}
-
       assert_equal 403, last_response.status
       assert_equal "Client jumpstartlab does not exist.", last_response.body
       assert_equal 0, Client.count
