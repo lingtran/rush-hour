@@ -44,7 +44,14 @@ module RushHour
 
     def self.min_response_time
       minimum(:responded_in)
-      # test
+    end
+
+    def self.requests_by_hour
+      self.map { |pr| pr.requested_at.hour }
+    end
+
+    def self.count_requests
+      self.count
     end
 
     def self.list_of_urls_unique

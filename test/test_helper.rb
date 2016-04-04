@@ -59,7 +59,7 @@ module RushHour
 
       payload1 = {
           url_id: @url1.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:20:40 -700",
           responded_in: 60,
           referred_by_id: @referral1.id,
           request_type_id: @request_type2.id,
@@ -85,7 +85,7 @@ module RushHour
 
       payload3 = {
           url_id: @url2.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:40:40 -700",
           responded_in: 62,
           referred_by_id: @referral3.id,
           request_type_id: @request_type2.id,
@@ -98,7 +98,7 @@ module RushHour
 
       payload4 = {
           url_id: @url3.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:50:40 -700",
           responded_in: 61,
           referred_by_id: @referral3.id,
           request_type_id: @request_type1.id,
@@ -111,7 +111,7 @@ module RushHour
 
       payload5 = {
           url_id: @url2.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:10:40 -700",
           responded_in: 62,
           referred_by_id: @referral3.id,
           request_type_id: @request_type2.id,
@@ -124,7 +124,7 @@ module RushHour
 
       payload6 = {
           url_id: @url1.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:30:20 -700",
           responded_in: 65,
           referred_by_id: @referral2.id,
           request_type_id: @request_type1.id,
@@ -137,7 +137,7 @@ module RushHour
 
       payload7 = {
           url_id: @url2.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:30:30 -700",
           responded_in: 62,
           referred_by_id: @referral1.id,
           request_type_id: @request_type2.id,
@@ -150,7 +150,7 @@ module RushHour
 
       payload8 = {
           url_id: @url3.id,
-          requested_at: "2015-04-01 12:30:40 -700",
+          requested_at: "2015-04-01 12:30:42 -700",
           responded_in: 65,
           referred_by_id: @referral2.id,
           request_type_id: @request_type1.id,
