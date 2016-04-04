@@ -1,18 +1,8 @@
 var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
 
 var lineChartData = {
-		labels : ["1AM","2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM"],
+		labels : ["1AM","2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM", "12AM"],
 		datasets : [
-			{
-				label: "My First dataset",
-				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgba(220,220,220,1)",
-				pointColor : "rgba(220,220,220,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : [20, 35, 23, 54, 29, 18, 12, 0, 10, 0, 12, 3, 4, 12, 43, 53, 32, 21, 29, 12, 34, 53, 43]
-			},
 			{
 				label: "My Second dataset",
 				fillColor : "rgba(48, 164, 255, 0.2)",
@@ -21,88 +11,13 @@ var lineChartData = {
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(48, 164, 255, 1)",
-				data : [30, 25, 1, 19, 9, 20, 25,50, 1, 0, 0, 31, 41, 24, 14, 3, 62, 11, 23, 52, 64, 13, 3]
+				data : [h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23, h0]
 			}
 		]
 
 	}
 
-	var barChartData = {
-			labels : ["January","February","March","April","May","June","July"],
-			datasets : [
-				{
-					fillColor : "rgba(220,220,220,0.5)",
-					strokeColor : "rgba(220,220,220,0.8)",
-					highlightFill: "rgba(220,220,220,0.75)",
-					highlightStroke: "rgba(220,220,220,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				},
-				{
-					fillColor : "rgba(48, 164, 255, 0.2)",
-					strokeColor : "rgba(48, 164, 255, 0.8)",
-					highlightFill : "rgba(48, 164, 255, 0.75)",
-					highlightStroke : "rgba(48, 164, 255, 1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				}
-			]
 
-		}
-
-	var pieData = [
-				{
-					value: 300,
-					color:"#30a5ff",
-					highlight: "#62b9fb",
-					label: "Blue"
-				},
-				{
-					value: 50,
-					color: "#ffb53e",
-					highlight: "#fac878",
-					label: "Orange"
-				},
-				{
-					value: 100,
-					color: "#1ebfae",
-					highlight: "#3cdfce",
-					label: "Teal"
-				},
-				{
-					value: 120,
-					color: "#f9243f",
-					highlight: "#f6495f",
-					label: "Red"
-				}
-
-			];
-
-	var doughnutData = [
-					{
-						value: 300,
-						color:"#30a5ff",
-						highlight: "#62b9fb",
-						label: "Blue"
-					},
-					{
-						value: 50,
-						color: "#ffb53e",
-						highlight: "#fac878",
-						label: "Orange"
-					},
-					{
-						value: 100,
-						color: "#1ebfae",
-						highlight: "#3cdfce",
-						label: "Teal"
-					},
-					{
-						value: 120,
-						color: "#f9243f",
-						highlight: "#f6495f",
-						label: "Red"
-					}
-
-				];
 
 window.onload = function(){
 	var chart1 = document.getElementById("line-chart").getContext("2d");
