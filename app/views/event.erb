@@ -4,13 +4,44 @@
 <p>
   Requests by hour
 </p>
-<ul>
-  <% hours.each_pair do |hour, count|  %>
-  <li> Hour <%=hour%>: <%= count %> count(s) </li>
-  <% end %>
-</ul>
 
-<p>
-  Number of times event was received
-</p>
-<%= count_for_event %>
+<script>
+  var h1 = <%= hours[1] %>
+  var h2 = <%= hours[2] %>
+  var h3 = <%= hours[3] %>
+  var h4 = <%= hours[4] %>
+  var h5 = <%= hours[5] %>
+  var h6 = <%= hours[6] %>
+  var h7 = <%= hours[7] %>
+  var h8 = <%= hours[8] %>
+  var h9 = <%= hours[9] %>
+  var h10 = <%= hours[10] %>
+  var h11 = <%= hours[11] %>
+  var h12 = <%= hours[12] %>
+  var h13 = <%= hours[13] %>
+  var h14 = <%= hours[14] %>
+  var h15 = <%= hours[15] %>
+  var h16 = <%= hours[16] %>
+  var h17 = <%= hours[17] %>
+  var h18 = <%= hours[18] %>
+  var h19 = <%= hours[19] %>
+  var h20 = <%= hours[20] %>
+  var h21 = <%= hours[21] %>
+  var h22 = <%= hours[22] %>
+  var h23 = <%= hours[23] %>
+  var h0 = <%= hours[0] %>
+</script>
+
+<div class="row">
+	<div class="col-lg-12">
+    <div class="panel-body">
+		<div class="panel panel-default">
+			<div class="panel-heading">Client Hourly Payload Statistics</div>
+				<div class="canvas-wrapper">
+					<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
+        <p>Total number of times event was received: <%= count_for_event %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
