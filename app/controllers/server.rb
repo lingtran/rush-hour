@@ -34,7 +34,7 @@ module RushHour
     get '/sources/:identifier' do |id|
       client = Client.find_by(:identifier => id)
       if client.nil?
-        erb :client_error
+        erb :client_error, :locals => {:identifier => id}
       elsif client.payload_requests.nil?
         erb :payload_missing_error
       elsif client
@@ -63,18 +63,22 @@ module RushHour
           erb :event_error, :locals => { :identifier => id, :event_name => event }
         end
       else
-        erb :client_error
+        erb :client_error, :locals => {:identifier => id}
       end
     end
 
     get '/sources/:identifier/events' do |id|
       client = Client.find_by(:identifier => id)
-      client_events = client.event_names.pluck(:event_name).uniq
-      erb :events_index, :locals => { :identifier => id, :client_events => client_events }
+      if client
+        client_events = client.event_names.pluck(:event_name).uniq
+        erb :events_index, :locals => { :identifier => id, :client_events => client_events }
+      else
+        erb :error, :locals => { :identifier => id }
+      end
     end
 
     not_found do
-      erb :error
+      erb :error, :locals => { :identifier => id }
     end
 
   end
