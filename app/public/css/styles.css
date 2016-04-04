@@ -42,6 +42,14 @@ h3, h4 {
 	font-size: 2em;
 }
 
+.medium {
+	font-size: 1.5em;
+}
+
+.small {
+	font-size: 1em;
+}
+
 .text-muted {
 	color: #9fadbb;
 }
@@ -374,7 +382,7 @@ a.bg-danger:hover {
 }
 
 .widget-left {
-	height: 80px;
+	height: 130px;
 	padding-top: 15px;
 	text-align: center;
 	border-top-left-radius: 4px;
@@ -386,7 +394,7 @@ a.bg-danger:hover {
 	line-height: 1.6em;
 	margin: 0px;
 	padding: 20px;
-	height: 80px;
+	height: 130px;
 	color: #999;
 	font-weight: 300;
 	background: #fff;
@@ -419,6 +427,14 @@ a.bg-danger:hover {
 	color: #9fadbb;
 }
 .widget-right .large {
+	color: #5f6468;
+}
+
+.widget-right .medium {
+	color: #5f6468;
+}
+
+.widget-right .small {
 	color: #5f6468;
 }
 
@@ -942,7 +958,21 @@ h1.page-header {
     position: relative;
     padding-top: 20%;
     padding-bottom: 20%;
-		font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+.intro-message > h1 {
 		font-weight: 700;
+		color: white;
+		text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+		font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+
+.intro-message > h3 {
+		font-weight: 350;
+		color: #efefef;
+		text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+		font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+
 
 }
